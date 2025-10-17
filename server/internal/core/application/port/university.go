@@ -40,3 +40,9 @@ type ChangeUniversityPasswordData struct {
 	NewPassword     string
 	CurrentPassword string
 }
+
+type UniversityService interface {
+	SignUp(ctx context.Context, data SignUpUniversityData) (*UniversityWithTokenResult, error)
+	SignIn(ctx context.Context, data SignInUniversityData) (*UniversityWithTokenResult, error)
+	ChangePassword(ctx context.Context, actor domain.Actor, data ChangeUniversityPasswordData) error
+}
