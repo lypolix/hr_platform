@@ -29,15 +29,14 @@ type VacancyService interface {
 }
 
 type CreateVacancyInput struct {
-	CompanyID       uuid.UUID
-	Title           string
-	Description     string
-	Contacts        string
+	CompanyID        uuid.UUID
+	Title            string
+	Description      string
+	Contacts         string
 	Requirements     string
 	Responsibilities string
 	Conditions       string
-	SalaryFrom       *int
-	SalaryTo         *int
+	Salary           *int
 	Employment       string
 	Schedule         string
 	Experience       string
@@ -46,14 +45,13 @@ type CreateVacancyInput struct {
 }
 
 type UpdateVacancyInput struct {
-	Title           string
-	Description     string
-	Contacts        string
+	Title            string
+	Description      string
+	Contacts         string
 	Requirements     string
 	Responsibilities string
 	Conditions       string
-	SalaryFrom       *int
-	SalaryTo         *int
+	Salary           *int
 	Employment       string
 	Schedule         string
 	Experience       string

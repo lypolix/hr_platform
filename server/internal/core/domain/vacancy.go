@@ -19,8 +19,7 @@ type (
 		responsibilities string
 		conditions       string
 
-		salaryFrom *int
-		salaryTo   *int
+		salary *int
 
 		employment string
 		schedule   string
@@ -42,8 +41,7 @@ type (
 		Requirements     string
 		Responsibilities string
 		Conditions       string
-		SalaryFrom       *int
-		SalaryTo         *int
+		Salary           *int
 		Employment       string
 		Schedule         string
 		Experience       string
@@ -55,15 +53,14 @@ type (
 	}
 
 	CreateVacancyAttrs struct {
-		CompanyID       uuid.UUID
-		Title           string
-		Description     string
-		Contacts        string
+		CompanyID        uuid.UUID
+		Title            string
+		Description      string
+		Contacts         string
 		Requirements     string
 		Responsibilities string
 		Conditions       string
-		SalaryFrom       *int
-		SalaryTo         *int
+		Salary           *int
 		Employment       string
 		Schedule         string
 		Experience       string
@@ -94,8 +91,7 @@ func (v *Vacancy) Immutable() VacancyImmutable {
 		Requirements:     v.requirements,
 		Responsibilities: v.responsibilities,
 		Conditions:       v.conditions,
-		SalaryFrom:       v.salaryFrom,
-		SalaryTo:         v.salaryTo,
+		Salary:           v.salary,
 		Employment:       v.employment,
 		Schedule:         v.schedule,
 		Experience:       v.experience,
@@ -120,14 +116,9 @@ func (v *Vacancy) checkInvariants() error {
 	if l := len(v.description); l < 1 {
 		return fmt.Errorf("%w: empty description", ErrInvariantViolated)
 	}
-	if v.salaryFrom != nil && *v.salaryFrom < 0 {
-		return fmt.Errorf("%w: negative salary_from", ErrInvariantViolated)
-	}
-	if v.salaryTo != nil && *v.salaryTo < 0 {
-		return fmt.Errorf("%w: negative salary_to", ErrInvariantViolated)
-	}
-	if v.salaryFrom != nil && v.salaryTo != nil && *v.salaryFrom > *v.salaryTo {
-		return fmt.Errorf("%w: salary_from > salary_to", ErrInvariantViolated)
+	
+	if v.salary != nil && *v.salary < 0 {
+		return fmt.Errorf("%w: negative salary", ErrInvariantViolated)
 	}
 	if v.createdAt.IsZero() {
 		return fmt.Errorf("%w: zero creation time", ErrInvariantViolated)
@@ -151,8 +142,7 @@ func CreateVacancy(attrs CreateVacancyAttrs, at time.Time) (*Vacancy, error) {
 		Requirements:     attrs.Requirements,
 		Responsibilities: attrs.Responsibilities,
 		Conditions:       attrs.Conditions,
-		SalaryFrom:       attrs.SalaryFrom,
-		SalaryTo:         attrs.SalaryTo,
+		Salary:           attrs.Salary,
 		Employment:       attrs.Employment,
 		Schedule:         attrs.Schedule,
 		Experience:       attrs.Experience,
@@ -175,12 +165,11 @@ func ReconstructVacancy(immutable VacancyImmutable) (*Vacancy, error) {
 		requirements:     immutable.Requirements,
 		responsibilities: immutable.Responsibilities,
 		conditions:       immutable.Conditions,
-		salaryFrom:       immutable.SalaryFrom,
-		salaryTo:         immutable.SalaryTo,
+		salary:           immutable.Salary,
 		employment:       immutable.Employment,
 		schedule:         immutable.Schedule,
 		experience:       immutable.Experience,
-		education:       immutable.Education,
+		education:        immutable.Education,
 		location:         immutable.Location,
 		isActive:         immutable.IsActive,
 		createdAt:        immutable.CreatedAt,
@@ -210,11 +199,8 @@ func (v *Vacancy) Update(patch CreateVacancyAttrs, at time.Time) (*Vacancy, erro
 	if patch.Conditions != "" {
 		imm.Conditions = patch.Conditions
 	}
-	if patch.SalaryFrom != nil {
-		imm.SalaryFrom = patch.SalaryFrom
-	}
-	if patch.SalaryTo != nil {
-		imm.SalaryTo = patch.SalaryTo
+	if patch.Salary != nil {
+		imm.Salary = patch.Salary
 	}
 	if patch.Employment != "" {
 		imm.Employment = patch.Employment

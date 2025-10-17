@@ -15,7 +15,6 @@ type vacancyService struct {
 	clock   port.Clock
 }
 
-
 func NewVacancyService(r port.VacancyRepository, cr port.CompanyRepository, c port.Clock) *vacancyService {
 	return &vacancyService{repo: r, company: cr, clock: c}
 }
@@ -39,8 +38,7 @@ func (s *vacancyService) Create(ctx context.Context, in port.CreateVacancyInput)
 		Requirements:     in.Requirements,
 		Responsibilities: in.Responsibilities,
 		Conditions:       in.Conditions,
-		SalaryFrom:       in.SalaryFrom,
-		SalaryTo:         in.SalaryTo,
+		Salary:           in.Salary,
 		Employment:       in.Employment,
 		Schedule:         in.Schedule,
 		Experience:       in.Experience,
@@ -68,8 +66,7 @@ func (s *vacancyService) Update(ctx context.Context, id uuid.UUID, in port.Updat
 		Requirements:     in.Requirements,
 		Responsibilities: in.Responsibilities,
 		Conditions:       in.Conditions,
-		SalaryFrom:       in.SalaryFrom,
-		SalaryTo:         in.SalaryTo,
+		Salary:           in.Salary,
 		Employment:       in.Employment,
 		Schedule:         in.Schedule,
 		Experience:       in.Experience,

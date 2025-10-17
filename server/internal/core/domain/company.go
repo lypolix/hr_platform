@@ -15,8 +15,6 @@ type (
 		contacts         string
 		inn              string
 		address          string
-		website          string
-		logoURL          string
 		approved         bool
 		representativeID uuid.UUID
 		login            string
@@ -32,7 +30,6 @@ type (
 		Contacts         string
 		INN              string
 		Address          string
-		Website          string
 		LogoURL          string
 		Approved         bool
 		RepresentativeID uuid.UUID
@@ -48,7 +45,6 @@ type (
 		Contacts         string
 		INN              string
 		Address          string
-		Website          string
 		LogoURL          string
 		RepresentativeID uuid.UUID
 		Login            string
@@ -64,8 +60,6 @@ func (c *Company) Immutable() CompanyImmutable {
 		Contacts:         c.contacts,
 		INN:              c.inn,
 		Address:          c.address,
-		Website:          c.website,
-		LogoURL:          c.logoURL,
 		Approved:         c.approved,
 		RepresentativeID: c.representativeID,
 		Login:            c.login,
@@ -111,7 +105,6 @@ func CreateCompany(attrs CreateCompanyAttrs, at time.Time) (*Company, error) {
 		Contacts:         attrs.Contacts,
 		INN:              attrs.INN,
 		Address:          attrs.Address,
-		Website:          attrs.Website,
 		LogoURL:          attrs.LogoURL,
 		Approved:         false,
 		RepresentativeID: attrs.RepresentativeID,
@@ -131,8 +124,7 @@ func ReconstructCompany(immutable CompanyImmutable) (*Company, error) {
 		contacts:         immutable.Contacts,
 		inn:              immutable.INN,
 		address:          immutable.Address,
-		website:          immutable.Website,
-		logoURL:          immutable.LogoURL,
+		
 		approved:         immutable.Approved,
 		representativeID: immutable.RepresentativeID,
 		login:            immutable.Login,
@@ -151,7 +143,7 @@ func (c *Company) Approve(at time.Time) (*Company, error) {
 	return ReconstructCompany(imm)
 }
 
-func (c *Company) UpdateProfile(title, description, contacts, address, website, logoURL string, at time.Time) (*Company, error) {
+func (c *Company) UpdateProfile(title, description, contacts, address string, at time.Time) (*Company, error) {
 	imm := c.Immutable()
 	if title != "" {
 		imm.Title = title
@@ -165,12 +157,7 @@ func (c *Company) UpdateProfile(title, description, contacts, address, website, 
 	if address != "" {
 		imm.Address = address
 	}
-	if website != "" {
-		imm.Website = website
-	}
-	if logoURL != "" {
-		imm.LogoURL = logoURL
-	}
+	
 	imm.UpdatedAt = at
 	return ReconstructCompany(imm)
 }

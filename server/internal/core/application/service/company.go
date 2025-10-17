@@ -48,8 +48,6 @@ func (s *companyService) SignUp(ctx context.Context, data port.SignUpCompanyData
 		Contacts:         data.Contacts,
 		INN:              data.INN,
 		Address:          data.Address,
-		Website:          data.Website,
-		LogoURL:          data.LogoURL,
 		RepresentativeID: data.RepresentativeID,
 		Login:            data.Login,
 		PasswordHash:     passwordHash,
@@ -143,7 +141,7 @@ func (s *companyService) UpdateProfile(ctx context.Context, actor domain.Actor, 
 	}
 
 	company2, err := company.UpdateProfile(
-		data.Title, data.Description, data.Contacts, data.Address, data.Website, data.LogoURL,
+		data.Title, data.Description, data.Contacts, data.Address,
 		s.clock.Now(),
 	)
 	if err != nil {

@@ -24,8 +24,6 @@ type SignUpCompanyData struct {
 	Description      string
 	Contacts         string
 	Address          string
-	Website          string
-	LogoURL          string
 	RepresentativeID uuid.UUID
 }
 
@@ -54,8 +52,6 @@ type UpdateCompanyProfileData struct {
 	Description string
 	Contacts    string
 	Address     string
-	Website     string
-	LogoURL     string
 }
 
 // Данные для смены учётных данных компании
