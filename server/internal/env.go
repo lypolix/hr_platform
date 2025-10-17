@@ -6,7 +6,10 @@ import (
 	envparser "github.com/caarlos0/env/v11"
 )
 
-type environment struct{}
+type environment struct {
+	SecretKey   string `env:"SECRET_KEY,required"`
+	PostgresDSN string `env:"POSTGRES_DSN,required"`
+}
 
 func LoadEnv() (environment, error) {
 	var env environment
