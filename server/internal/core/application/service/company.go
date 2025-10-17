@@ -10,106 +10,191 @@ import (
 )
 
 type companyService struct {
-	repo  port.CompanyRepository
-	pass  port.PasswordService
-	clock port.Clock
+	companyRepo     port.CompanyRepository
+	passwordService port.PasswordService
+	tokenService    port.TokenService
+	clock           port.Clock
 }
 
-func NewCompanyService(r port.CompanyRepository, p port.PasswordService, c port.Clock) *companyService {
-	return &companyService{repo: r, pass: p, clock: c}
+type CompanyServiceDeps struct {
+	CompanyRepo     port.CompanyRepository
+	PasswordService port.PasswordService
+	TokenService    port.TokenService
+	Clock           port.Clock
 }
 
-func (s *companyService) Register(ctx context.Context, in port.RegisterCompanyInput) (*domain.Company, error) {
-	if existing, _ := s.repo.ByINN(ctx, in.INN); existing != nil {
-		return nil, fmt.Errorf("company with INN exists")
+func NewCompanyService(d CompanyServiceDeps) *companyService {
+	return &companyService{
+		companyRepo:     d.CompanyRepo,
+		passwordService: d.PasswordService,
+		tokenService:    d.TokenService,
+		clock:           d.Clock,
 	}
-	if existing, _ := s.repo.ByLogin(ctx, in.Login); existing != nil {
-		return nil, fmt.Errorf("login already taken")
-	}
-	hash, err := s.pass.Hash(in.Password)
-	if err != nil {
-		return nil, err
-	}
-	now := s.clock.Now()
-	c, err := domain.CreateCompany(domain.CreateCompanyAttrs{
-		Title:            in.Title,
-		Description:      in.Description,
-		Contacts:         in.Contacts,
-		INN:              in.INN,
-		Address:          in.Address,
-		Website:          in.Website,
-		LogoURL:          in.LogoURL,
-		RepresentativeID: in.RepresentativeID,
-		Login:            in.Login,
-		PasswordHash:     hash,
-	}, now)
-	if err != nil {
-		return nil, err
-	}
-	return c, s.repo.Save(ctx, c)
 }
 
-func (s *companyService) Approve(ctx context.Context, id uuid.UUID) (*domain.Company, error) {
-	c, err := s.repo.ByID(ctx, id)
-	if err != nil {
-		return nil, err
+func (s *companyService) SignUp(ctx context.Context, data port.SignUpCompanyData) (*port.CompanyWithTokenResult, error) {
+	if err := s.validatePassword(data.Password); err != nil {
+		return nil, fmt.Errorf("error validating password: %w", err)
 	}
-	now := s.clock.Now()
-	c2, err := c.Approve(now)
+
+	passwordHash, err := s.passwordService.Hash(data.Password)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error hashing password: %w", err)
 	}
-	return c2, s.repo.Save(ctx, c2)
+
+	company, err := domain.CreateCompany(domain.CreateCompanyAttrs{
+		Title:            data.Title,
+		Description:      data.Description,
+		Contacts:         data.Contacts,
+		INN:              data.INN,
+		Address:          data.Address,
+		Website:          data.Website,
+		LogoURL:          data.LogoURL,
+		RepresentativeID: data.RepresentativeID,
+		Login:            data.Login,
+		PasswordHash:     passwordHash,
+	}, s.clock.Now())
+	if err != nil {
+		return nil, fmt.Errorf("error creating company: %w", err)
+	}
+
+	if err := s.companyRepo.Save(ctx, company); err != nil {
+		return nil, fmt.Errorf("error saving company: %w", err)
+	}
+
+	ci := company.Immutable()
+	token, err := s.tokenService.Generate(port.TokenPayload{
+		Sub:  ci.ID,
+		Role: port.RoleCompany,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("error generating token: %w", err)
+	}
+
+	return &port.CompanyWithTokenResult{
+		CompanyResult: port.CompanyResult{
+			Login: ci.Login,
+			Title: ci.Title,
+			INN:   ci.INN,
+		},
+		Token: token,
+	}, nil
 }
 
-func (s *companyService) Login(ctx context.Context, login, password string) (*domain.Company, error) {
-	c, err := s.repo.ByLogin(ctx, login)
+func (s *companyService) SignIn(ctx context.Context, data port.SignInCompanyData) (*port.CompanyWithTokenResult, error) {
+	company, err := s.companyRepo.GetByLogin(ctx, data.Login)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error getting company by login: %w", err)
 	}
-	if err := s.pass.Compare(c.Immutable().PasswordHash, password); err != nil {
-		return nil, fmt.Errorf("invalid credentials")
+
+	ci := company.Immutable()
+	if !s.passwordService.Check(data.Password, ci.PasswordHash) {
+		return nil, domain.ErrUnauthorized
 	}
-	if !c.Immutable().Approved {
-		return nil, fmt.Errorf("company not approved")
+	if !ci.Approved {
+		return nil, fmt.Errorf("company is not approved")
 	}
-	return c, nil
+
+	token, err := s.tokenService.Generate(port.TokenPayload{
+		Sub:  ci.ID,
+		Role: port.RoleCompany,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("error generating token: %w", err)
+	}
+
+	return &port.CompanyWithTokenResult{
+		CompanyResult: port.CompanyResult{
+			Login: ci.Login,
+			Title: ci.Title,
+			INN:   ci.INN,
+		},
+		Token: token,
+	}, nil
 }
 
-func (s *companyService) UpdateProfile(ctx context.Context, id uuid.UUID, in port.UpdateCompanyInput) (*domain.Company, error) {
-	c, err := s.repo.ByID(ctx, id)
-	if err != nil {
-		return nil, err
+func (s *companyService) Approve(ctx context.Context, actor domain.Actor, companyID uuid.UUID) error {
+	if actor.Role != domain.RoleAdmin {
+		return fmt.Errorf("admin role required: %w", domain.ErrForbidden)
 	}
-	now := s.clock.Now()
-	c2, err := c.UpdateProfile(in.Title, in.Description, in.Contacts, in.Address, in.Website, in.LogoURL, now)
+
+	company, err := s.companyRepo.GetByID(ctx, companyID)
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("error getting company by id: %w", err)
 	}
-	return c2, s.repo.Save(ctx, c2)
+
+	company2, err := company.Approve(s.clock.Now())
+	if err != nil {
+		return fmt.Errorf("error approving company: %w", err)
+	}
+
+	return s.companyRepo.Save(ctx, company2)
 }
 
-func (s *companyService) ChangeCredentials(ctx context.Context, id uuid.UUID, login, password string) (*domain.Company, error) {
-	c, err := s.repo.ByID(ctx, id)
-	if err != nil {
-		return nil, err
+
+func (s *companyService) UpdateProfile(ctx context.Context, actor domain.Actor, data port.UpdateCompanyProfileData) (*port.CompanyResult, error) {
+	if actor.Role != domain.RoleCompany {
+		return nil, fmt.Errorf("company role required: %w", domain.ErrForbidden)
 	}
-	var hash string
-	if password != "" {
-		h, err := s.pass.Hash(password)
-		if err != nil {
-			return nil, err
+
+	company, err := s.companyRepo.GetByID(ctx, actor.ID)
+	if err != nil {
+		return nil, fmt.Errorf("error getting company by id: %w", err)
+	}
+
+	company2, err := company.UpdateProfile(
+		data.Title, data.Description, data.Contacts, data.Address, data.Website, data.LogoURL,
+		s.clock.Now(),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("error updating profile: %w", err)
+	}
+
+	if err := s.companyRepo.Save(ctx, company2); err != nil {
+		return nil, fmt.Errorf("error saving company: %w", err)
+	}
+
+	ci := company2.Immutable()
+	return &port.CompanyResult{
+		Login: ci.Login,
+		Title: ci.Title,
+		INN:   ci.INN,
+	}, nil
+}
+
+func (s *companyService) ChangeCredentials(ctx context.Context, actor domain.Actor, data port.ChangeCompanyCredentialsData) error {
+	if actor.Role != domain.RoleCompany {
+		return fmt.Errorf("company role required: %w", domain.ErrForbidden)
+	}
+
+	company, err := s.companyRepo.GetByID(ctx, actor.ID)
+	if err != nil {
+		return fmt.Errorf("error getting company by id: %w", err)
+	}
+
+	var newHash string
+	if data.Password != "" {
+		if err := s.validatePassword(data.Password); err != nil {
+			return fmt.Errorf("error validating password: %w", err)
 		}
-		hash = h
+		h, err := s.passwordService.Hash(data.Password)
+		if err != nil {
+			return fmt.Errorf("error hashing password: %w", err)
+		}
+		newHash = h
 	}
-	now := s.clock.Now()
-	c2, err := c.ChangeCredentials(login, hash, now)
+
+	company2, err := company.ChangeCredentials(data.Login, newHash, s.clock.Now())
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("error changing credentials: %w", err)
 	}
-	return c2, s.repo.Save(ctx, c2)
+
+	return s.companyRepo.Save(ctx, company2)
 }
 
-func (s *companyService) Get(ctx context.Context, id uuid.UUID) (*domain.Company, error) {
-	return s.repo.ByID(ctx, id)
+func (s *companyService) validatePassword(password string) error {
+	if len(password) < 8 || len(password) > 64 {
+		return fmt.Errorf("%w: invalid password length", domain.ErrInvariantViolated)
+	}
+	return nil
 }

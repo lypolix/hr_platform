@@ -15,14 +15,13 @@ type vacancyService struct {
 	clock   port.Clock
 }
 
-// БЫЛО: func NewVacancyService(r port.VacancyRepository, cr port.CompanyRepository, c port.Clock) *v vacancyService {
-// ДОЛЖНО БЫТЬ:
+
 func NewVacancyService(r port.VacancyRepository, cr port.CompanyRepository, c port.Clock) *vacancyService {
 	return &vacancyService{repo: r, company: cr, clock: c}
 }
 
 func (s *vacancyService) Create(ctx context.Context, in port.CreateVacancyInput) (*domain.Vacancy, error) {
-	co, err := s.company.ByID(ctx, in.CompanyID)
+	co, err := s.company.GetByID(ctx, in.CompanyID)
 	if err != nil || co == nil {
 		return nil, fmt.Errorf("company not found")
 	}
