@@ -1,6 +1,10 @@
 networks:
   app:
 
+volumes:
+  postgres_data:
+  pgadmin_data:
+
 services:
   server:
     image: hr-platform-mosprom/server:dev
@@ -9,8 +13,30 @@ services:
       context: ./server
       dockerfile: ./build/Dockerfile.dev
     env_file:
-      - ./server/env/.env
+      - ./server/.env
     ports:
       - 80:80
     volumes:
       - ./server/:/app/
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: postgres
+    env_file:
+      - ./server/.env
+    ports:
+      - 5432:5432 # for migrations invoked on host machine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    env_file:
+      - ./infra/pgadmin/.env
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - 8080:80
