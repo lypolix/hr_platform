@@ -19,7 +19,7 @@ func NewCompanyService(repo port.CompanyRepository) port.CompanyService {
 	return &companyService{repo: repo}
 }
 
-// Register — регистрация компании представителем с установкой логина и пароля
+
 func (s *companyService) Register(ctx context.Context, req domain.CreateCompanyRequest) (*domain.Company, error) {
 	if existing, _ := s.repo.GetByINN(ctx, req.INN); existing != nil {
 		return nil, fmt.Errorf("company with INN %s already exists", req.INN)
@@ -40,7 +40,6 @@ func (s *companyService) Register(ctx context.Context, req domain.CreateCompanyR
 	return cmp, nil
 }
 
-// Login — авторизация представителя компании
 func (s *companyService) Login(ctx context.Context, login, password string) (*domain.Company, error) {
 	cmp, err := s.repo.GetByLogin(ctx, login)
 	if err != nil || cmp == nil {
