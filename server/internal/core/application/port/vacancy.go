@@ -8,23 +8,56 @@ import (
 )
 
 type VacancyRepository interface {
-	Create(ctx context.Context, vacancy *domain.Vacancy) error
-	GetByID(ctx context.Context, id uuid.UUID) (*domain.Vacancy, error)
-	GetByCompanyID(ctx context.Context, companyID uuid.UUID, limit, offset int) ([]*domain.Vacancy, error)
-	GetAll(ctx context.Context, limit, offset int) ([]*domain.Vacancy, error)
-	GetWithFilters(ctx context.Context, filter domain.VacancyFilter) ([]*domain.Vacancy, error)
-	Update(ctx context.Context, vacancy *domain.Vacancy) error
+	Save(ctx context.Context, v *domain.Vacancy) error
+	ByID(ctx context.Context, id uuid.UUID) (*domain.Vacancy, error)
+	ByCompany(ctx context.Context, companyID uuid.UUID, limit, offset int) ([]*domain.Vacancy, error)
+	All(ctx context.Context, limit, offset int) ([]*domain.Vacancy, error)
+	Search(ctx context.Context, f domain.VacancyFilter) ([]*domain.Vacancy, error)
 	Delete(ctx context.Context, id uuid.UUID) error
 }
 
 type VacancyService interface {
-	Create(ctx context.Context, req domain.CreateVacancyRequest) (*domain.Vacancy, error)
-	GetByID(ctx context.Context, id uuid.UUID) (*domain.Vacancy, error)
+	Create(ctx context.Context, in CreateVacancyInput) (*domain.Vacancy, error)
+	Update(ctx context.Context, id uuid.UUID, in UpdateVacancyInput) (*domain.Vacancy, error)
+	Get(ctx context.Context, id uuid.UUID) (*domain.Vacancy, error)
 	ListByCompany(ctx context.Context, companyID uuid.UUID, limit, offset int) ([]*domain.Vacancy, error)
 	ListAll(ctx context.Context, limit, offset int) ([]*domain.Vacancy, error)
-	Search(ctx context.Context, filter domain.VacancyFilter) ([]*domain.Vacancy, error)
-	Update(ctx context.Context, id uuid.UUID, req domain.UpdateVacancyRequest) (*domain.Vacancy, error)
-	Delete(ctx context.Context, id uuid.UUID) error
+	Search(ctx context.Context, f domain.VacancyFilter) ([]*domain.Vacancy, error)
 	Activate(ctx context.Context, id uuid.UUID) error
 	Deactivate(ctx context.Context, id uuid.UUID) error
+	Delete(ctx context.Context, id uuid.UUID) error
+}
+
+type CreateVacancyInput struct {
+	CompanyID       uuid.UUID
+	Title           string
+	Description     string
+	Contacts        string
+	Requirements     string
+	Responsibilities string
+	Conditions       string
+	SalaryFrom       *int
+	SalaryTo         *int
+	Employment       string
+	Schedule         string
+	Experience       string
+	Education        string
+	Location         string
+}
+
+type UpdateVacancyInput struct {
+	Title           string
+	Description     string
+	Contacts        string
+	Requirements     string
+	Responsibilities string
+	Conditions       string
+	SalaryFrom       *int
+	SalaryTo         *int
+	Employment       string
+	Schedule         string
+	Experience       string
+	Education        string
+	Location         string
+	IsActive         *bool
 }

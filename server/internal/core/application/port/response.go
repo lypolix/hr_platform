@@ -8,20 +8,27 @@ import (
 )
 
 type ResponseRepository interface {
-	Create(ctx context.Context, resp *domain.Response) error
-	GetByID(ctx context.Context, id uuid.UUID) (*domain.Response, error)
-	GetByVacancyID(ctx context.Context, vacancyID uuid.UUID, limit, offset int) ([]*domain.Response, error)
-	GetWithFilters(ctx context.Context, filter domain.ResponseFilter) ([]*domain.Response, error)
-	Update(ctx context.Context, resp *domain.Response) error
+	Save(ctx context.Context, r *domain.Response) error
+	ByID(ctx context.Context, id uuid.UUID) (*domain.Response, error)
+	ByVacancy(ctx context.Context, vacancyID uuid.UUID, limit, offset int) ([]*domain.Response, error)
+	Search(ctx context.Context, f domain.ResponseFilter) ([]*domain.Response, error)
 	Delete(ctx context.Context, id uuid.UUID) error
 }
 
-
 type ResponseService interface {
-	Create(ctx context.Context, req domain.CreateResponseRequest) (*domain.Response, error)
-	GetByID(ctx context.Context, id uuid.UUID) (*domain.Response, error)
+	Create(ctx context.Context, in CreateResponseInput) (*domain.Response, error)
+	Get(ctx context.Context, id uuid.UUID) (*domain.Response, error)
 	ListByVacancy(ctx context.Context, vacancyID uuid.UUID, limit, offset int) ([]*domain.Response, error)
-	Search(ctx context.Context, filter domain.ResponseFilter) ([]*domain.Response, error)
-	UpdateStatus(ctx context.Context, id uuid.UUID, status string) error
+	Search(ctx context.Context, f domain.ResponseFilter) ([]*domain.Response, error)
+	SetStatus(ctx context.Context, id uuid.UUID, status string) error
 	Delete(ctx context.Context, id uuid.UUID) error
+}
+
+type CreateResponseInput struct {
+	VacancyID   uuid.UUID
+	FullName    string
+	Email       string
+	Phone       string
+	CoverLetter string
+	ResumeURL   string
 }

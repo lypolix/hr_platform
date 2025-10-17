@@ -1,12 +1,12 @@
 package domain
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
 )
 
-// Статусы отклика
 const (
 	ResponseStatusNew      = "new"
 	ResponseStatusViewed   = "viewed"
@@ -14,59 +14,146 @@ const (
 	ResponseStatusAccepted = "accepted"
 )
 
-type Response struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	VacancyID uuid.UUID `json:"vacancy_id" db:"vacancy_id"`
+type (
+	Response struct {
+		id        uuid.UUID
+		vacancyID uuid.UUID
+		fullName  string
+		email     string
+		phone     string
+		coverLetter string
+		resumeURL string
+		status    string
+		createdAt time.Time
+		updatedAt time.Time
+	}
 
-	FullName string `json:"full_name" db:"full_name"`
-	Email    string `json:"email" db:"email"`
-	Phone    string `json:"phone" db:"phone"`
+	ResponseImmutable struct {
+		ID          uuid.UUID
+		VacancyID   uuid.UUID
+		FullName    string
+		Email       string
+		Phone       string
+		CoverLetter string
+		ResumeURL   string
+		Status      string
+		CreatedAt   time.Time
+		UpdatedAt   time.Time
+	}
 
-	CoverLetter string `json:"cover_letter" db:"cover_letter"`
-	ResumeURL   string `json:"resume_url" db:"resume_url"` // ссылка на S3-объект
+	CreateResponseAttrs struct {
+		VacancyID   uuid.UUID
+		FullName    string
+		Email       string
+		Phone       string
+		CoverLetter string
+		ResumeURL   string
+	}
 
-	Status    string    `json:"status" db:"status"` // new/viewed/rejected/accepted
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-}
+	ResponseFilter struct {
+		VacancyID *uuid.UUID
+		Status    *string
+		Limit     int
+		Offset    int
+	}
+)
 
-type CreateResponseRequest struct {
-	VacancyID   uuid.UUID `json:"vacancy_id" binding:"required"`
-	FullName    string    `json:"full_name" binding:"required"`
-	Email       string    `json:"email" binding:"required,email"`
-	Phone       string    `json:"phone" binding:"required"`
-	CoverLetter string    `json:"cover_letter"`
-	ResumeURL   string    `json:"resume_url" binding:"required"` // путь/URL, файл уже загружен в S3
-}
-
-type UpdateResponseStatusRequest struct {
-	Status string `json:"status" binding:"required,oneof=new viewed rejected accepted"`
-}
-
-type ResponseFilter struct {
-	VacancyID *uuid.UUID
-	Status    *string
-	Limit     int
-	Offset    int
-}
-
-func NewResponse(req CreateResponseRequest) *Response {
-	now := time.Now()
-	return &Response{
-		ID:          uuid.New(),
-		VacancyID:   req.VacancyID,
-		FullName:    req.FullName,
-		Email:       req.Email,
-		Phone:       req.Phone,
-		CoverLetter: req.CoverLetter,
-		ResumeURL:   req.ResumeURL,
-		Status:      ResponseStatusNew,
-		CreatedAt:   now,
-		UpdatedAt:   now,
+func (r *Response) Immutable() ResponseImmutable {
+	return ResponseImmutable{
+		ID:          r.id,
+		VacancyID:   r.vacancyID,
+		FullName:    r.fullName,
+		Email:       r.email,
+		Phone:       r.phone,
+		CoverLetter: r.coverLetter,
+		ResumeURL:   r.resumeURL,
+		Status:      r.status,
+		CreatedAt:   r.createdAt,
+		UpdatedAt:   r.updatedAt,
 	}
 }
 
-func (r *Response) UpdateStatus(status string) {
-	r.Status = status
-	r.UpdatedAt = time.Now()
+func (r *Response) checkInvariants() error {
+	if r.id == uuid.Nil {
+		return fmt.Errorf("%w: nil id", ErrInvariantViolated)
+	}
+	if r.vacancyID == uuid.Nil {
+		return fmt.Errorf("%w: nil vacancy id", ErrInvariantViolated)
+	}
+	if l := len(r.fullName); l < 1 || l > 256 {
+		return fmt.Errorf("%w: invalid full_name length", ErrInvariantViolated)
+	}
+	if l := len(r.email); l < 3 || l > 256 {
+		return fmt.Errorf("%w: invalid email length", ErrInvariantViolated)
+	}
+	switch r.status {
+	case ResponseStatusNew, ResponseStatusViewed, ResponseStatusRejected, ResponseStatusAccepted:
+	default:
+		return fmt.Errorf("%w: invalid status", ErrInvariantViolated)
+	}
+	if r.createdAt.IsZero() {
+		return fmt.Errorf("%w: zero creation time", ErrInvariantViolated)
+	}
+	if r.updatedAt.IsZero() {
+		return fmt.Errorf("%w: zero updation time", ErrInvariantViolated)
+	}
+	if r.createdAt.After(r.updatedAt) {
+		return fmt.Errorf("%w: creation time is after updation time", ErrInvariantViolated)
+	}
+	return nil
+}
+
+func CreateResponse(attrs CreateResponseAttrs, at time.Time) (*Response, error) {
+	imm := ResponseImmutable{
+		ID:          uuid.New(),
+		VacancyID:   attrs.VacancyID,
+		FullName:    attrs.FullName,
+		Email:       attrs.Email,
+		Phone:       attrs.Phone,
+		CoverLetter: attrs.CoverLetter,
+		ResumeURL:   attrs.ResumeURL,
+		Status:      ResponseStatusNew,
+		CreatedAt:   at,
+		UpdatedAt:   at,
+	}
+	return ReconstructResponse(imm)
+}
+
+func ReconstructResponse(immutable ResponseImmutable) (*Response, error) {
+	r := &Response{
+		id:          immutable.ID,
+		vacancyID:   immutable.VacancyID,
+		fullName:    immutable.FullName,
+		email:       immutable.Email,
+		phone:       immutable.Phone,
+		coverLetter: immutable.CoverLetter,
+		resumeURL:   immutable.ResumeURL,
+		status:      immutable.Status,
+		createdAt:   immutable.CreatedAt,
+		updatedAt:   immutable.UpdatedAt,
+	}
+	return r, r.checkInvariants()
+}
+
+// Мутации через Immutable + Reconstruct
+func (r *Response) SetStatus(status string, at time.Time) (*Response, error) {
+	imm := r.Immutable()
+	imm.Status = status
+	imm.UpdatedAt = at
+	return ReconstructResponse(imm)
+}
+
+func (r *Response) UpdateContacts(fullName, email, phone string, at time.Time) (*Response, error) {
+	imm := r.Immutable()
+	if fullName != "" {
+		imm.FullName = fullName
+	}
+	if email != "" {
+		imm.Email = email
+	}
+	if phone != "" {
+		imm.Phone = phone
+	}
+	imm.UpdatedAt = at
+	return ReconstructResponse(imm)
 }

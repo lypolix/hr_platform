@@ -2,89 +2,114 @@ package service
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/hr-platform-mosprom/internal/core/application/port"
 	"github.com/hr-platform-mosprom/internal/core/domain"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type companyService struct {
-	repo port.CompanyRepository
+	repo  port.CompanyRepository
+	pass  port.PasswordService
+	clock port.Clock
 }
 
-func NewCompanyService(repo port.CompanyRepository) port.CompanyService {
-	return &companyService{repo: repo}
+func NewCompanyService(r port.CompanyRepository, p port.PasswordService, c port.Clock) *companyService {
+	return &companyService{repo: r, pass: p, clock: c}
 }
 
-
-func (s *companyService) Register(ctx context.Context, req domain.CreateCompanyRequest) (*domain.Company, error) {
-	if existing, _ := s.repo.GetByINN(ctx, req.INN); existing != nil {
-		return nil, fmt.Errorf("company with INN %s already exists", req.INN)
+func (s *companyService) Register(ctx context.Context, in port.RegisterCompanyInput) (*domain.Company, error) {
+	if existing, _ := s.repo.ByINN(ctx, in.INN); existing != nil {
+		return nil, fmt.Errorf("company with INN exists")
 	}
-	if existedLogin, _ := s.repo.GetByLogin(ctx, req.Login); existedLogin != nil {
-		return nil, fmt.Errorf("login %s already taken", req.Login)
+	if existing, _ := s.repo.ByLogin(ctx, in.Login); existing != nil {
+		return nil, fmt.Errorf("login already taken")
 	}
-
-	hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	hash, err := s.pass.Hash(in.Password)
 	if err != nil {
-		return nil, fmt.Errorf("hash password: %w", err)
+		return nil, err
 	}
+	now := s.clock.Now()
+	c, err := domain.CreateCompany(domain.CreateCompanyAttrs{
+		Title:            in.Title,
+		Description:      in.Description,
+		Contacts:         in.Contacts,
+		INN:              in.INN,
+		Address:          in.Address,
+		Website:          in.Website,
+		LogoURL:          in.LogoURL,
+		RepresentativeID: in.RepresentativeID,
+		Login:            in.Login,
+		PasswordHash:     hash,
+	}, now)
+	if err != nil {
+		return nil, err
+	}
+	return c, s.repo.Save(ctx, c)
+}
 
-	cmp := domain.NewCompany(req, string(hash))
-	if err := s.repo.Create(ctx, cmp); err != nil {
-		return nil, fmt.Errorf("create company: %w", err)
+func (s *companyService) Approve(ctx context.Context, id uuid.UUID) (*domain.Company, error) {
+	c, err := s.repo.ByID(ctx, id)
+	if err != nil {
+		return nil, err
 	}
-	return cmp, nil
+	now := s.clock.Now()
+	c2, err := c.Approve(now)
+	if err != nil {
+		return nil, err
+	}
+	return c2, s.repo.Save(ctx, c2)
 }
 
 func (s *companyService) Login(ctx context.Context, login, password string) (*domain.Company, error) {
-	cmp, err := s.repo.GetByLogin(ctx, login)
-	if err != nil || cmp == nil {
-		return nil, errors.New("invalid credentials")
-	}
-	if bcrypt.CompareHashAndPassword([]byte(cmp.PasswordHash), []byte(password)) != nil {
-		return nil, errors.New("invalid credentials")
-	}
-	if !cmp.Approved {
-		return nil, errors.New("company is not approved yet")
-	}
-	return cmp, nil
-}
-
-func (s *companyService) Approve(ctx context.Context, id uuid.UUID) error {
-	return s.repo.SetApproved(ctx, id, true)
-}
-
-func (s *companyService) GetByID(ctx context.Context, id uuid.UUID) (*domain.Company, error) {
-	return s.repo.GetByID(ctx, id)
-}
-
-func (s *companyService) ListApproved(ctx context.Context, limit, offset int) ([]*domain.Company, error) {
-	if limit <= 0 {
-		limit = 20
-	}
-	return s.repo.GetAllApproved(ctx, limit, offset)
-}
-
-func (s *companyService) ListByRepresentative(ctx context.Context, repID uuid.UUID) ([]*domain.Company, error) {
-	return s.repo.GetByRepresentativeID(ctx, repID)
-}
-
-func (s *companyService) Update(ctx context.Context, id uuid.UUID, req domain.UpdateCompanyRequest) (*domain.Company, error) {
-	cmp, err := s.repo.GetByID(ctx, id)
+	c, err := s.repo.ByLogin(ctx, login)
 	if err != nil {
-		return nil, fmt.Errorf("get company: %w", err)
+		return nil, err
 	}
-	cmp.Update(req)
-	if err := s.repo.Update(ctx, cmp); err != nil {
-		return nil, fmt.Errorf("update company: %w", err)
+	if err := s.pass.Compare(c.Immutable().PasswordHash, password); err != nil {
+		return nil, fmt.Errorf("invalid credentials")
 	}
-	return cmp, nil
+	if !c.Immutable().Approved {
+		return nil, fmt.Errorf("company not approved")
+	}
+	return c, nil
 }
 
-func (s *companyService) Delete(ctx context.Context, id uuid.UUID) error {
-	return s.repo.Delete(ctx, id)
+func (s *companyService) UpdateProfile(ctx context.Context, id uuid.UUID, in port.UpdateCompanyInput) (*domain.Company, error) {
+	c, err := s.repo.ByID(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	now := s.clock.Now()
+	c2, err := c.UpdateProfile(in.Title, in.Description, in.Contacts, in.Address, in.Website, in.LogoURL, now)
+	if err != nil {
+		return nil, err
+	}
+	return c2, s.repo.Save(ctx, c2)
+}
+
+func (s *companyService) ChangeCredentials(ctx context.Context, id uuid.UUID, login, password string) (*domain.Company, error) {
+	c, err := s.repo.ByID(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	var hash string
+	if password != "" {
+		h, err := s.pass.Hash(password)
+		if err != nil {
+			return nil, err
+		}
+		hash = h
+	}
+	now := s.clock.Now()
+	c2, err := c.ChangeCredentials(login, hash, now)
+	if err != nil {
+		return nil, err
+	}
+	return c2, s.repo.Save(ctx, c2)
+}
+
+func (s *companyService) Get(ctx context.Context, id uuid.UUID) (*domain.Company, error) {
+	return s.repo.ByID(ctx, id)
 }

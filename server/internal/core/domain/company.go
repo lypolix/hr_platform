@@ -1,97 +1,188 @@
 package domain
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
 )
 
-type Company struct {
-	ID               uuid.UUID `json:"id" db:"id"`
-	Title            string    `json:"title" db:"title"`                  // название компании
-	INN              string    `json:"inn" db:"inn"`                      // ИНН
-	Description      string    `json:"description" db:"description"`      // описание
-	Contacts         string    `json:"contacts" db:"contacts"`            // контакты в свободной форме
-	Address          string    `json:"address" db:"address"`              // адрес (опц.)
-	Website          string    `json:"website" db:"website"`              // сайт (опц.)
-	LogoURL          string    `json:"logo_url" db:"logo_url"`            // логотип (опц.)
-	Approved         bool      `json:"approved" db:"approved"`            // прошла модерацию?
-	RepresentativeID uuid.UUID `json:"representative_id" db:"representative_id"`
+type (
+	Company struct {
+		id               uuid.UUID
+		title            string
+		description      string
+		contacts         string
+		inn              string
+		address          string
+		website          string
+		logoURL          string
+		approved         bool
+		representativeID uuid.UUID
+		login            string
+		passwordHash     string
+		createdAt        time.Time
+		updatedAt        time.Time
+	}
 
-	// Данные для авторизации представителя компании
-	Login        string `json:"login" db:"login"`
-	PasswordHash string `json:"-" db:"password_hash"`
+	CompanyImmutable struct {
+		ID               uuid.UUID
+		Title            string
+		Description      string
+		Contacts         string
+		INN              string
+		Address          string
+		Website          string
+		LogoURL          string
+		Approved         bool
+		RepresentativeID uuid.UUID
+		Login            string
+		PasswordHash     string
+		CreatedAt        time.Time
+		UpdatedAt        time.Time
+	}
 
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+	CreateCompanyAttrs struct {
+		Title            string
+		Description      string
+		Contacts         string
+		INN              string
+		Address          string
+		Website          string
+		LogoURL          string
+		RepresentativeID uuid.UUID
+		Login            string
+		PasswordHash     string
+	}
+)
+
+func (c *Company) Immutable() CompanyImmutable {
+	return CompanyImmutable{
+		ID:               c.id,
+		Title:            c.title,
+		Description:      c.description,
+		Contacts:         c.contacts,
+		INN:              c.inn,
+		Address:          c.address,
+		Website:          c.website,
+		LogoURL:          c.logoURL,
+		Approved:         c.approved,
+		RepresentativeID: c.representativeID,
+		Login:            c.login,
+		PasswordHash:     c.passwordHash,
+		CreatedAt:        c.createdAt,
+		UpdatedAt:        c.updatedAt,
+	}
 }
 
-type CreateCompanyRequest struct {
-	Title            string    `json:"title" binding:"required"`
-	INN              string    `json:"inn" binding:"required,len=10"`
-	Description      string    `json:"description" binding:"required"`
-	Contacts         string    `json:"contacts" binding:"required"`
-	Address          string    `json:"address"`
-	Website          string    `json:"website"`
-	LogoURL          string    `json:"logo_url"`
-	RepresentativeID uuid.UUID `json:"representative_id" binding:"required"`
-
-	Login    string `json:"login" binding:"required,min=4"`
-	Password string `json:"password" binding:"required,min=6"`
+func (c *Company) checkInvariants() error {
+	if c.id == uuid.Nil {
+		return fmt.Errorf("%w: nil id", ErrInvariantViolated)
+	}
+	if l := len(c.title); l < 1 || l > 512 {
+		return fmt.Errorf("%w: invalid title length", ErrInvariantViolated)
+	}
+	if len(c.inn) != 10 {
+		return fmt.Errorf("%w: invalid INN length", ErrInvariantViolated)
+	}
+	if l := len(c.login); l < 4 || l > 128 {
+		return fmt.Errorf("%w: invalid login length", ErrInvariantViolated)
+	}
+	if len(c.passwordHash) < 10 {
+		return fmt.Errorf("%w: weak password hash", ErrInvariantViolated)
+	}
+	if c.createdAt.IsZero() {
+		return fmt.Errorf("%w: zero creation time", ErrInvariantViolated)
+	}
+	if c.updatedAt.IsZero() {
+		return fmt.Errorf("%w: zero updation time", ErrInvariantViolated)
+	}
+	if c.createdAt.After(c.updatedAt) {
+		return fmt.Errorf("%w: creation time is after updation time", ErrInvariantViolated)
+	}
+	return nil
 }
 
-type UpdateCompanyRequest struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Contacts    string `json:"contacts"`
-	Address     string `json:"address"`
-	Website     string `json:"website"`
-	LogoURL     string `json:"logo_url"`
-}
-
-func NewCompany(req CreateCompanyRequest, passwordHash string) *Company {
-	now := time.Now()
-	return &Company{
+func CreateCompany(attrs CreateCompanyAttrs, at time.Time) (*Company, error) {
+	imm := CompanyImmutable{
 		ID:               uuid.New(),
-		Title:            req.Title,
-		INN:              req.INN,
-		Description:      req.Description,
-		Contacts:         req.Contacts,
-		Address:          req.Address,
-		Website:          req.Website,
-		LogoURL:          req.LogoURL,
+		Title:            attrs.Title,
+		Description:      attrs.Description,
+		Contacts:         attrs.Contacts,
+		INN:              attrs.INN,
+		Address:          attrs.Address,
+		Website:          attrs.Website,
+		LogoURL:          attrs.LogoURL,
 		Approved:         false,
-		RepresentativeID: req.RepresentativeID,
-		Login:            req.Login,
-		PasswordHash:     passwordHash,
-		CreatedAt:        now,
-		UpdatedAt:        now,
+		RepresentativeID: attrs.RepresentativeID,
+		Login:            attrs.Login,
+		PasswordHash:     attrs.PasswordHash,
+		CreatedAt:        at,
+		UpdatedAt:        at,
 	}
+	return ReconstructCompany(imm)
 }
 
-func (c *Company) Update(req UpdateCompanyRequest) {
-	if req.Title != "" {
-		c.Title = req.Title
+func ReconstructCompany(immutable CompanyImmutable) (*Company, error) {
+	c := &Company{
+		id:               immutable.ID,
+		title:            immutable.Title,
+		description:      immutable.Description,
+		contacts:         immutable.Contacts,
+		inn:              immutable.INN,
+		address:          immutable.Address,
+		website:          immutable.Website,
+		logoURL:          immutable.LogoURL,
+		approved:         immutable.Approved,
+		representativeID: immutable.RepresentativeID,
+		login:            immutable.Login,
+		passwordHash:     immutable.PasswordHash,
+		createdAt:        immutable.CreatedAt,
+		updatedAt:        immutable.UpdatedAt,
 	}
-	if req.Description != "" {
-		c.Description = req.Description
-	}
-	if req.Contacts != "" {
-		c.Contacts = req.Contacts
-	}
-	if req.Address != "" {
-		c.Address = req.Address
-	}
-	if req.Website != "" {
-		c.Website = req.Website
-	}
-	if req.LogoURL != "" {
-		c.LogoURL = req.LogoURL
-	}
-	c.UpdatedAt = time.Now()
+	return c, c.checkInvariants()
 }
 
-func (c *Company) Approve() {
-	c.Approved = true
-	c.UpdatedAt = time.Now()
+// Мутации через Immutable + Reconstruct
+func (c *Company) Approve(at time.Time) (*Company, error) {
+	imm := c.Immutable()
+	imm.Approved = true
+	imm.UpdatedAt = at
+	return ReconstructCompany(imm)
+}
+
+func (c *Company) UpdateProfile(title, description, contacts, address, website, logoURL string, at time.Time) (*Company, error) {
+	imm := c.Immutable()
+	if title != "" {
+		imm.Title = title
+	}
+	if description != "" {
+		imm.Description = description
+	}
+	if contacts != "" {
+		imm.Contacts = contacts
+	}
+	if address != "" {
+		imm.Address = address
+	}
+	if website != "" {
+		imm.Website = website
+	}
+	if logoURL != "" {
+		imm.LogoURL = logoURL
+	}
+	imm.UpdatedAt = at
+	return ReconstructCompany(imm)
+}
+
+func (c *Company) ChangeCredentials(login, passwordHash string, at time.Time) (*Company, error) {
+	imm := c.Immutable()
+	if login != "" {
+		imm.Login = login
+	}
+	if passwordHash != "" {
+		imm.PasswordHash = passwordHash
+	}
+	imm.UpdatedAt = at
+	return ReconstructCompany(imm)
 }
