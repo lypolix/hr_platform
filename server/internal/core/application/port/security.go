@@ -8,21 +8,20 @@ type PasswordService interface {
 	Compare(hash, plain string) error
 }
 
-type role string
+type Role string
 
 const (
-	RoleCompany    role = "company"
-	RoleUniversity role = "university"
-	RoleAdmin      role = "admin"
+	RoleCompany    Role = "company"
+	RoleUniversity Role = "university"
+	RoleAdmin      Role = "admin"
 )
 
 type TokenPayload struct {
 	Sub  uuid.UUID
-	Role role
+	Role Role
 }
 
 type TokenService interface {
 	Generate(TokenPayload) (string, error)
 	Validate(string) (TokenPayload, error)
 }
-
