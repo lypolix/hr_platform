@@ -1,5 +1,3 @@
--- Up
-
 CREATE TABLE universities (
     id UUID PRIMARY KEY,
     title VARCHAR(512) NOT NULL,
@@ -65,7 +63,7 @@ CREATE TABLE responses (
     phone VARCHAR(64) NOT NULL,
     cover_letter TEXT NOT NULL,
     resume_url TEXT NOT NULL,
-    status VARCHAR(32) NOT NULL, 
+    status VARCHAR(32) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL
 );
@@ -73,7 +71,7 @@ CREATE TABLE responses (
 CREATE INDEX responses_vacancy_idx ON responses(vacancy_id);
 CREATE INDEX responses_status_idx ON responses(status);
 
--- Down
+---- create above / drop below ----
 
 DROP TABLE IF EXISTS responses;
 DROP TABLE IF EXISTS vacancies;
