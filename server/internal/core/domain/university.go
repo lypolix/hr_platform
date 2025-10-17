@@ -56,6 +56,13 @@ func (u *University) SetPasswordHash(newPasswordHash string, at time.Time) error
 	return u.checkInvariants()
 }
 
+func (u *University) Confirm(at time.Time) error {
+	u.confirmed = true
+	u.updatedAt = at
+
+	return u.checkInvariants()
+}
+
 func (u *University) checkInvariants() error {
 	if u.id == uuid.Nil {
 		return fmt.Errorf("%w: nil id", ErrInvariantViolated)

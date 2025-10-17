@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/hr-platform-mosprom/internal/core/application/port"
 	"github.com/hr-platform-mosprom/internal/core/domain"
 )
@@ -137,6 +138,26 @@ func (s *universityService) ChangePassword(ctx context.Context, actor domain.Act
 	if err != nil {
 		return fmt.Errorf("error setting password hash: %w", err)
 	}
+
+	err = s.universityRepo.Save(ctx, university)
+	if err != nil {
+		return fmt.Errorf("error saving university: %w", err)
+	}
+
+	return nil
+}
+
+func (s *universityService) Confirm(ctx context.Context, actor domain.Actor, universityID uuid.UUID) error {
+	if actor.Role != domain.RoleAdmin {
+		return fmt.Errorf("admin role required: %w", domain.ErrForbidden)
+	}
+
+	university, err := s.universityRepo.GetByID(ctx, universityID)
+	if err != nil {
+		return fmt.Errorf("error getting university by id: %w", err)
+	}
+
+	university.Confirm(s.clock.Now())
 
 	err = s.universityRepo.Save(ctx, university)
 	if err != nil {
