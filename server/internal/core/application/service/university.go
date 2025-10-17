@@ -15,6 +15,20 @@ type universityService struct {
 	clock           port.Clock
 }
 
+func NewUniversityService(
+	universityRepo port.UniversityRepository,
+	passwordService port.PasswordService,
+	tokenService port.TokenService,
+	clock port.Clock,
+) *universityService {
+	return &universityService{
+		universityRepo,
+		passwordService,
+		tokenService,
+		clock,
+	}
+}
+
 func (s *universityService) SignUp(ctx context.Context, data port.SignUpUniversityData) (*port.UniversityWithTokenResult, error) {
 	err := s.validatePassword(data.Password)
 	if err != nil {
