@@ -1,0 +1,16 @@
+networks:
+  app:
+
+services:
+  server:
+    image: hr-platform-mosprom/server:dev
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: ./build/Dockerfile.dev
+    env_file:
+      - ./server/env/.env
+    ports:
+      - 80:80
+    volumes:
+      - ./server/:/app/

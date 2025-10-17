@@ -11,11 +11,9 @@ RUN mkdir -p /etc/air
 RUN cat <<-EOF > /etc/air/.air.toml
     tmp_dir = "/tmp/air"
     [build]
-    cmd = "go build -o /tmp/air/main cmd/http/main.go"
+    cmd = "go build -o /tmp/air/main cmd/app/main.go"
     bin = "/tmp/air/main"
     delay = 600
-    [log]
-    silent = true
 EOF
 
 CMD ["air", "-c", "/etc/air/.air.toml"]
