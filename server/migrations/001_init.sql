@@ -1,3 +1,5 @@
+-- Up
+
 CREATE TABLE universities (
     id UUID PRIMARY KEY,
     title VARCHAR(512) NOT NULL,
@@ -45,10 +47,7 @@ CREATE TABLE vacancies (
     location TEXT NOT NULL,
     is_active BOOLEAN NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
-    updated_at TIMESTAMPTZ NOT NULL,
-    CHECK (salary_from IS NULL OR salary_from >= 0),
-    CHECK (salary_to IS NULL OR salary_to >= 0),
-    CHECK (salary_from IS NULL OR salary_to IS NULL OR salary_from <= salary_to)
+    updated_at TIMESTAMPTZ NOT NULL
 );
 
 CREATE INDEX vacancies_company_idx ON vacancies(company_id);
@@ -72,6 +71,8 @@ CREATE INDEX responses_vacancy_idx ON responses(vacancy_id);
 CREATE INDEX responses_status_idx ON responses(status);
 
 ---- create above / drop below ----
+
+-- Down
 
 DROP TABLE IF EXISTS responses;
 DROP TABLE IF EXISTS vacancies;

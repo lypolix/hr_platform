@@ -12,6 +12,102 @@ import (
 	"github.com/google/uuid"
 )
 
+const createCompany = `-- name: CreateCompany :exec
+INSERT INTO companies (
+    id, title, description, contacts, inn, address, approved, representative_id, login, password_hash, created_at, updated_at
+) VALUES (
+    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
+)
+`
+
+type CreateCompanyParams struct {
+	ID               uuid.UUID
+	Title            string
+	Description      string
+	Contacts         string
+	Inn              string
+	Address          string
+	Approved         bool
+	RepresentativeID uuid.UUID
+	Login            string
+	PasswordHash     string
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+}
+
+func (q *Queries) CreateCompany(ctx context.Context, arg CreateCompanyParams) error {
+	_, err := q.db.Exec(ctx, createCompany,
+		arg.ID,
+		arg.Title,
+		arg.Description,
+		arg.Contacts,
+		arg.Inn,
+		arg.Address,
+		arg.Approved,
+		arg.RepresentativeID,
+		arg.Login,
+		arg.PasswordHash,
+		arg.CreatedAt,
+		arg.UpdatedAt,
+	)
+	return err
+}
+
+const createResponse = `-- name: CreateResponse :exec
+INSERT INTO responses (
+    id,
+    vacancy_id,
+    full_name,
+    email,
+    phone,
+    cover_letter,
+    resume_url,
+    status,
+    created_at,
+    updated_at
+) VALUES (
+    $1,
+    $2,
+    $3,
+    $4,
+    $5,
+    $6,
+    $7,
+    $8,
+    $9,
+    $10
+)
+`
+
+type CreateResponseParams struct {
+	ID          uuid.UUID
+	VacancyID   uuid.UUID
+	FullName    string
+	Email       string
+	Phone       string
+	CoverLetter string
+	ResumeUrl   string
+	Status      string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
+func (q *Queries) CreateResponse(ctx context.Context, arg CreateResponseParams) error {
+	_, err := q.db.Exec(ctx, createResponse,
+		arg.ID,
+		arg.VacancyID,
+		arg.FullName,
+		arg.Email,
+		arg.Phone,
+		arg.CoverLetter,
+		arg.ResumeUrl,
+		arg.Status,
+		arg.CreatedAt,
+		arg.UpdatedAt,
+	)
+	return err
+}
+
 const createUniversity = `-- name: CreateUniversity :exec
 INSERT INTO universities (id, title, login, password_hash, inn, confirmed, created_at, updated_at)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -42,7 +138,239 @@ func (q *Queries) CreateUniversity(ctx context.Context, arg CreateUniversityPara
 	return err
 }
 
+const createVacancy = `-- name: CreateVacancy :exec
+INSERT INTO vacancies (
+    id,
+    company_id,
+    title,
+    description,
+    contacts,
+    requirements,
+    responsibilities,
+    conditions,
+    employment,
+    schedule,
+    experience,
+    education,
+    location,
+    is_active,
+    created_at,
+    updated_at
+) VALUES (
+    $1,
+    $2,
+    $3,
+    $4,
+    $5,
+    $6,
+    $7,
+    $8,
+    $9,
+    $10,
+    $11,
+    $12,
+    $13,
+    $14,
+    $15,
+    $16
+)
+`
+
+type CreateVacancyParams struct {
+	ID               uuid.UUID
+	CompanyID        uuid.UUID
+	Title            string
+	Description      string
+	Contacts         string
+	Requirements     string
+	Responsibilities string
+	Conditions       string
+	Employment       string
+	Schedule         string
+	Experience       string
+	Education        string
+	Location         string
+	IsActive         bool
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+}
+
+func (q *Queries) CreateVacancy(ctx context.Context, arg CreateVacancyParams) error {
+	_, err := q.db.Exec(ctx, createVacancy,
+		arg.ID,
+		arg.CompanyID,
+		arg.Title,
+		arg.Description,
+		arg.Contacts,
+		arg.Requirements,
+		arg.Responsibilities,
+		arg.Conditions,
+		arg.Employment,
+		arg.Schedule,
+		arg.Experience,
+		arg.Education,
+		arg.Location,
+		arg.IsActive,
+		arg.CreatedAt,
+		arg.UpdatedAt,
+	)
+	return err
+}
+
+const getCompanyByID = `-- name: GetCompanyByID :one
+
+SELECT
+    id,
+    title,
+    description,
+    contacts,
+    inn,
+    address,
+    approved,
+    representative_id,
+    login,
+    password_hash,
+    created_at,
+    updated_at
+FROM companies
+WHERE id = $1
+`
+
+// Companies
+func (q *Queries) GetCompanyByID(ctx context.Context, id uuid.UUID) (Company, error) {
+	row := q.db.QueryRow(ctx, getCompanyByID, id)
+	var i Company
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Description,
+		&i.Contacts,
+		&i.Inn,
+		&i.Address,
+		&i.Approved,
+		&i.RepresentativeID,
+		&i.Login,
+		&i.PasswordHash,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const getCompanyByINN = `-- name: GetCompanyByINN :one
+SELECT
+    id,
+    title,
+    description,
+    contacts,
+    inn,
+    address,
+    approved,
+    representative_id,
+    login,
+    password_hash,
+    created_at,
+    updated_at
+FROM companies
+WHERE inn = $1
+`
+
+func (q *Queries) GetCompanyByINN(ctx context.Context, inn string) (Company, error) {
+	row := q.db.QueryRow(ctx, getCompanyByINN, inn)
+	var i Company
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Description,
+		&i.Contacts,
+		&i.Inn,
+		&i.Address,
+		&i.Approved,
+		&i.RepresentativeID,
+		&i.Login,
+		&i.PasswordHash,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const getCompanyByLogin = `-- name: GetCompanyByLogin :one
+SELECT
+    id,
+    title,
+    description,
+    contacts,
+    inn,
+    address,
+    approved,
+    representative_id,
+    login,
+    password_hash,
+    created_at,
+    updated_at
+FROM companies
+WHERE login = $1
+`
+
+func (q *Queries) GetCompanyByLogin(ctx context.Context, login string) (Company, error) {
+	row := q.db.QueryRow(ctx, getCompanyByLogin, login)
+	var i Company
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Description,
+		&i.Contacts,
+		&i.Inn,
+		&i.Address,
+		&i.Approved,
+		&i.RepresentativeID,
+		&i.Login,
+		&i.PasswordHash,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const getResponseByID = `-- name: GetResponseByID :one
+
+SELECT
+    id,
+    vacancy_id,
+    full_name,
+    email,
+    phone,
+    cover_letter,
+    resume_url,
+    status,
+    created_at,
+    updated_at
+FROM responses
+WHERE id = $1
+`
+
+// Responses
+func (q *Queries) GetResponseByID(ctx context.Context, id uuid.UUID) (Response, error) {
+	row := q.db.QueryRow(ctx, getResponseByID, id)
+	var i Response
+	err := row.Scan(
+		&i.ID,
+		&i.VacancyID,
+		&i.FullName,
+		&i.Email,
+		&i.Phone,
+		&i.CoverLetter,
+		&i.ResumeUrl,
+		&i.Status,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const getUniversityByID = `-- name: GetUniversityByID :one
+
 SELECT
     id,
     login,
@@ -67,6 +395,7 @@ type GetUniversityByIDRow struct {
 	UpdatedAt    time.Time
 }
 
+// Universities
 func (q *Queries) GetUniversityByID(ctx context.Context, id uuid.UUID) (GetUniversityByIDRow, error) {
 	row := q.db.QueryRow(ctx, getUniversityByID, id)
 	var i GetUniversityByIDRow
@@ -81,6 +410,373 @@ func (q *Queries) GetUniversityByID(ctx context.Context, id uuid.UUID) (GetUnive
 		&i.UpdatedAt,
 	)
 	return i, err
+}
+
+const getUniversityByINN = `-- name: GetUniversityByINN :one
+SELECT
+    id,
+    login,
+    password_hash,
+    inn,
+    title,
+    confirmed,
+    created_at,
+    updated_at
+FROM universities
+WHERE inn = $1
+`
+
+type GetUniversityByINNRow struct {
+	ID           uuid.UUID
+	Login        string
+	PasswordHash string
+	Inn          string
+	Title        string
+	Confirmed    bool
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+}
+
+func (q *Queries) GetUniversityByINN(ctx context.Context, inn string) (GetUniversityByINNRow, error) {
+	row := q.db.QueryRow(ctx, getUniversityByINN, inn)
+	var i GetUniversityByINNRow
+	err := row.Scan(
+		&i.ID,
+		&i.Login,
+		&i.PasswordHash,
+		&i.Inn,
+		&i.Title,
+		&i.Confirmed,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const getUniversityByLogin = `-- name: GetUniversityByLogin :one
+SELECT
+    id,
+    login,
+    password_hash,
+    inn,
+    title,
+    confirmed,
+    created_at,
+    updated_at
+FROM universities
+WHERE login = $1
+`
+
+type GetUniversityByLoginRow struct {
+	ID           uuid.UUID
+	Login        string
+	PasswordHash string
+	Inn          string
+	Title        string
+	Confirmed    bool
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+}
+
+func (q *Queries) GetUniversityByLogin(ctx context.Context, login string) (GetUniversityByLoginRow, error) {
+	row := q.db.QueryRow(ctx, getUniversityByLogin, login)
+	var i GetUniversityByLoginRow
+	err := row.Scan(
+		&i.ID,
+		&i.Login,
+		&i.PasswordHash,
+		&i.Inn,
+		&i.Title,
+		&i.Confirmed,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const getVacancyByID = `-- name: GetVacancyByID :one
+
+SELECT
+    id,
+    company_id,
+    title,
+    description,
+    contacts,
+    requirements,
+    responsibilities,
+    conditions,
+    employment,
+    schedule,
+    experience,
+    education,
+    location,
+    is_active,
+    created_at,
+    updated_at
+FROM vacancies
+WHERE id = $1
+`
+
+// Vacancies
+func (q *Queries) GetVacancyByID(ctx context.Context, id uuid.UUID) (Vacancy, error) {
+	row := q.db.QueryRow(ctx, getVacancyByID, id)
+	var i Vacancy
+	err := row.Scan(
+		&i.ID,
+		&i.CompanyID,
+		&i.Title,
+		&i.Description,
+		&i.Contacts,
+		&i.Requirements,
+		&i.Responsibilities,
+		&i.Conditions,
+		&i.Employment,
+		&i.Schedule,
+		&i.Experience,
+		&i.Education,
+		&i.Location,
+		&i.IsActive,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const listActiveVacancies = `-- name: ListActiveVacancies :many
+SELECT
+    id,
+    company_id,
+    title,
+    description,
+    contacts,
+    requirements,
+    responsibilities,
+    conditions,
+    employment,
+    schedule,
+    experience,
+    education,
+    location,
+    is_active,
+    created_at,
+    updated_at
+FROM vacancies
+WHERE is_active = TRUE
+ORDER BY created_at DESC
+`
+
+func (q *Queries) ListActiveVacancies(ctx context.Context) ([]Vacancy, error) {
+	rows, err := q.db.Query(ctx, listActiveVacancies)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Vacancy
+	for rows.Next() {
+		var i Vacancy
+		if err := rows.Scan(
+			&i.ID,
+			&i.CompanyID,
+			&i.Title,
+			&i.Description,
+			&i.Contacts,
+			&i.Requirements,
+			&i.Responsibilities,
+			&i.Conditions,
+			&i.Employment,
+			&i.Schedule,
+			&i.Experience,
+			&i.Education,
+			&i.Location,
+			&i.IsActive,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listResponsesByVacancy = `-- name: ListResponsesByVacancy :many
+SELECT
+    id,
+    vacancy_id,
+    full_name,
+    email,
+    phone,
+    cover_letter,
+    resume_url,
+    status,
+    created_at,
+    updated_at
+FROM responses
+WHERE vacancy_id = $1
+ORDER BY created_at DESC
+`
+
+func (q *Queries) ListResponsesByVacancy(ctx context.Context, vacancyID uuid.UUID) ([]Response, error) {
+	rows, err := q.db.Query(ctx, listResponsesByVacancy, vacancyID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Response
+	for rows.Next() {
+		var i Response
+		if err := rows.Scan(
+			&i.ID,
+			&i.VacancyID,
+			&i.FullName,
+			&i.Email,
+			&i.Phone,
+			&i.CoverLetter,
+			&i.ResumeUrl,
+			&i.Status,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listVacanciesByCompany = `-- name: ListVacanciesByCompany :many
+SELECT
+    id,
+    company_id,
+    title,
+    description,
+    contacts,
+    requirements,
+    responsibilities,
+    conditions,
+    employment,
+    schedule,
+    experience,
+    education,
+    location,
+    is_active,
+    created_at,
+    updated_at
+FROM vacancies
+WHERE company_id = $1
+ORDER BY created_at DESC
+`
+
+func (q *Queries) ListVacanciesByCompany(ctx context.Context, companyID uuid.UUID) ([]Vacancy, error) {
+	rows, err := q.db.Query(ctx, listVacanciesByCompany, companyID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Vacancy
+	for rows.Next() {
+		var i Vacancy
+		if err := rows.Scan(
+			&i.ID,
+			&i.CompanyID,
+			&i.Title,
+			&i.Description,
+			&i.Contacts,
+			&i.Requirements,
+			&i.Responsibilities,
+			&i.Conditions,
+			&i.Employment,
+			&i.Schedule,
+			&i.Experience,
+			&i.Education,
+			&i.Location,
+			&i.IsActive,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const updateCompany = `-- name: UpdateCompany :exec
+UPDATE companies
+SET
+    title = $1,
+    description = $2,
+    contacts = $3,
+    inn = $4,
+    address = $5,
+    approved = $6,
+    representative_id = $7,
+    login = $8,
+    password_hash = $9,
+    created_at = $10,
+    updated_at = $11
+WHERE id = $12
+`
+
+type UpdateCompanyParams struct {
+	Title            string
+	Description      string
+	Contacts         string
+	Inn              string
+	Address          string
+	Approved         bool
+	RepresentativeID uuid.UUID
+	Login            string
+	PasswordHash     string
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+	ID               uuid.UUID
+}
+
+func (q *Queries) UpdateCompany(ctx context.Context, arg UpdateCompanyParams) error {
+	_, err := q.db.Exec(ctx, updateCompany,
+		arg.Title,
+		arg.Description,
+		arg.Contacts,
+		arg.Inn,
+		arg.Address,
+		arg.Approved,
+		arg.RepresentativeID,
+		arg.Login,
+		arg.PasswordHash,
+		arg.CreatedAt,
+		arg.UpdatedAt,
+		arg.ID,
+	)
+	return err
+}
+
+const updateResponseStatus = `-- name: UpdateResponseStatus :exec
+UPDATE responses
+SET
+    status = $1,
+    updated_at = $2
+WHERE id = $3
+`
+
+type UpdateResponseStatusParams struct {
+	Status    string
+	UpdatedAt time.Time
+	ID        uuid.UUID
+}
+
+func (q *Queries) UpdateResponseStatus(ctx context.Context, arg UpdateResponseStatusParams) error {
+	_, err := q.db.Exec(ctx, updateResponseStatus, arg.Status, arg.UpdatedAt, arg.ID)
+	return err
 }
 
 const updateUniversity = `-- name: UpdateUniversity :exec
@@ -114,6 +810,68 @@ func (q *Queries) UpdateUniversity(ctx context.Context, arg UpdateUniversityPara
 		arg.Title,
 		arg.Inn,
 		arg.Confirmed,
+		arg.CreatedAt,
+		arg.UpdatedAt,
+		arg.ID,
+	)
+	return err
+}
+
+const updateVacancy = `-- name: UpdateVacancy :exec
+UPDATE vacancies
+SET
+    company_id = $1,
+    title = $2,
+    description = $3,
+    contacts = $4,
+    requirements = $5,
+    responsibilities = $6,
+    conditions = $7,
+    employment = $8,
+    schedule = $9,
+    experience = $10,
+    education = $11,
+    location = $12,
+    is_active = $13,
+    created_at = $14,
+    updated_at = $15
+WHERE id = $16
+`
+
+type UpdateVacancyParams struct {
+	CompanyID        uuid.UUID
+	Title            string
+	Description      string
+	Contacts         string
+	Requirements     string
+	Responsibilities string
+	Conditions       string
+	Employment       string
+	Schedule         string
+	Experience       string
+	Education        string
+	Location         string
+	IsActive         bool
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+	ID               uuid.UUID
+}
+
+func (q *Queries) UpdateVacancy(ctx context.Context, arg UpdateVacancyParams) error {
+	_, err := q.db.Exec(ctx, updateVacancy,
+		arg.CompanyID,
+		arg.Title,
+		arg.Description,
+		arg.Contacts,
+		arg.Requirements,
+		arg.Responsibilities,
+		arg.Conditions,
+		arg.Employment,
+		arg.Schedule,
+		arg.Experience,
+		arg.Education,
+		arg.Location,
+		arg.IsActive,
 		arg.CreatedAt,
 		arg.UpdatedAt,
 		arg.ID,
