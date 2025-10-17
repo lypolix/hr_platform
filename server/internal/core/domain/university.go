@@ -49,6 +49,13 @@ func (u *University) Immutable() UniversityImmutable {
 	}
 }
 
+func (u *University) SetPasswordHash(newPasswordHash string, at time.Time) error {
+	u.passwordHash = newPasswordHash
+	u.updatedAt = at
+
+	return u.checkInvariants()
+}
+
 func (u *University) checkInvariants() error {
 	if u.id == uuid.Nil {
 		return fmt.Errorf("%w: nil id", ErrInvariantViolated)
