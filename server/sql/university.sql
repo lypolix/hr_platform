@@ -26,3 +26,16 @@ SET
     created_at = @created_at,
     updated_at = @updated_at
 WHERE id = @id;
+
+-- name: GetUniversityByLogin :one
+SELECT
+    id,
+    login,
+    password_hash,
+    inn,
+    title,
+    confirmed,
+    created_at,
+    updated_at
+FROM universities
+WHERE login = @login;

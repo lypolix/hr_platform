@@ -46,6 +46,32 @@ func (r *universityRepo) GetByID(ctx context.Context, id uuid.UUID) (*domain.Uni
 	return university, nil
 }
 
+func (r *universityRepo) GetByLogin(ctx context.Context, login string) (*domain.University, error) {
+	universityFromDB, err := r.q.GetUniversityByLogin(ctx, login)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, domain.ErrNotFound
+		}
+		return nil, fmt.Errorf("error getting university by id: %w", err)
+	}
+
+	university, err := domain.ReconstructUniversity(domain.UniversityImmutable{
+		ID:           universityFromDB.ID,
+		Title:        universityFromDB.Title,
+		Login:        universityFromDB.Login,
+		PasswordHash: universityFromDB.PasswordHash,
+		INN:          universityFromDB.Inn,
+		Confirmed:    universityFromDB.Confirmed,
+		CreatedAt:    universityFromDB.CreatedAt,
+		UpdatedAt:    universityFromDB.UpdatedAt,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("error reconstructing university: %w", err)
+	}
+
+	return university, nil
+}
+
 func (r *universityRepo) Save(ctx context.Context, university *domain.University) error {
 	_, err := r.GetByID(ctx, university.Immutable().ID)
 	if err != nil {

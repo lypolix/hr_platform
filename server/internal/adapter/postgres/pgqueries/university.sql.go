@@ -83,6 +83,47 @@ func (q *Queries) GetUniversityByID(ctx context.Context, id uuid.UUID) (GetUnive
 	return i, err
 }
 
+const getUniversityByLogin = `-- name: GetUniversityByLogin :one
+SELECT
+    id,
+    login,
+    password_hash,
+    inn,
+    title,
+    confirmed,
+    created_at,
+    updated_at
+FROM universities
+WHERE login = $1
+`
+
+type GetUniversityByLoginRow struct {
+	ID           uuid.UUID
+	Login        string
+	PasswordHash string
+	Inn          string
+	Title        string
+	Confirmed    bool
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+}
+
+func (q *Queries) GetUniversityByLogin(ctx context.Context, login string) (GetUniversityByLoginRow, error) {
+	row := q.db.QueryRow(ctx, getUniversityByLogin, login)
+	var i GetUniversityByLoginRow
+	err := row.Scan(
+		&i.ID,
+		&i.Login,
+		&i.PasswordHash,
+		&i.Inn,
+		&i.Title,
+		&i.Confirmed,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const updateUniversity = `-- name: UpdateUniversity :exec
 UPDATE universities
 SET

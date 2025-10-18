@@ -10,6 +10,34 @@ import (
 	"github.com/google/uuid"
 )
 
+type Company struct {
+	ID               uuid.UUID
+	Title            string
+	Description      string
+	Contacts         string
+	Inn              string
+	Address          string
+	Approved         bool
+	RepresentativeID uuid.UUID
+	Login            string
+	PasswordHash     string
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+}
+
+type Response struct {
+	ID          uuid.UUID
+	VacancyID   uuid.UUID
+	FullName    string
+	Email       string
+	Phone       string
+	CoverLetter string
+	ResumeUrl   string
+	Status      string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
 type University struct {
 	ID           uuid.UUID
 	Title        string
@@ -19,4 +47,23 @@ type University struct {
 	Confirmed    bool
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
+}
+
+type Vacancy struct {
+	ID               uuid.UUID
+	CompanyID        uuid.UUID
+	Title            string
+	Description      string
+	Contacts         string
+	Requirements     string
+	Responsibilities string
+	Conditions       string
+	Employment       string
+	Schedule         string
+	Experience       string
+	Education        string
+	Location         string
+	IsActive         bool
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
 }
