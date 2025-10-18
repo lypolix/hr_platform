@@ -13,8 +13,8 @@ import (
 )
 
 const createUniversity = `-- name: CreateUniversity :exec
-INSERT INTO universities (id, title, login, password_hash, inn, confirmed, created_at, updated_at)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+INSERT INTO universities (id, title, login, password_hash, contacts, inn, confirmed, created_at, updated_at)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 `
 
 type CreateUniversityParams struct {
@@ -22,6 +22,7 @@ type CreateUniversityParams struct {
 	Title        string
 	Login        string
 	PasswordHash string
+	Contacts     string
 	Inn          string
 	Confirmed    bool
 	CreatedAt    time.Time
@@ -34,6 +35,7 @@ func (q *Queries) CreateUniversity(ctx context.Context, arg CreateUniversityPara
 		arg.Title,
 		arg.Login,
 		arg.PasswordHash,
+		arg.Contacts,
 		arg.Inn,
 		arg.Confirmed,
 		arg.CreatedAt,
@@ -51,6 +53,7 @@ SELECT
     inn,
     title,
     confirmed,
+    contacts,
     created_at,
     updated_at
 FROM universities
@@ -64,6 +67,7 @@ type GetUniversityByIDRow struct {
 	Inn          string
 	Title        string
 	Confirmed    bool
+	Contacts     string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
@@ -79,6 +83,7 @@ func (q *Queries) GetUniversityByID(ctx context.Context, id uuid.UUID) (GetUnive
 		&i.Inn,
 		&i.Title,
 		&i.Confirmed,
+		&i.Contacts,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -93,6 +98,7 @@ SELECT
     inn,
     title,
     confirmed,
+    contacts,
     created_at,
     updated_at
 FROM universities
@@ -106,6 +112,7 @@ type GetUniversityByLoginRow struct {
 	Inn          string
 	Title        string
 	Confirmed    bool
+	Contacts     string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
@@ -120,6 +127,7 @@ func (q *Queries) GetUniversityByLogin(ctx context.Context, login string) (GetUn
 		&i.Inn,
 		&i.Title,
 		&i.Confirmed,
+		&i.Contacts,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -133,10 +141,11 @@ SET
     password_hash = $2,
     title = $3,
     inn = $4,
-    confirmed = $5,
-    created_at = $6,
-    updated_at = $7
-WHERE id = $8
+    contacts = $5,
+    confirmed = $6,
+    created_at = $7,
+    updated_at = $8
+WHERE id = $9
 `
 
 type UpdateUniversityParams struct {
@@ -144,6 +153,7 @@ type UpdateUniversityParams struct {
 	PasswordHash string
 	Title        string
 	Inn          string
+	Contacts     string
 	Confirmed    bool
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
@@ -156,6 +166,7 @@ func (q *Queries) UpdateUniversity(ctx context.Context, arg UpdateUniversityPara
 		arg.PasswordHash,
 		arg.Title,
 		arg.Inn,
+		arg.Contacts,
 		arg.Confirmed,
 		arg.CreatedAt,
 		arg.UpdatedAt,

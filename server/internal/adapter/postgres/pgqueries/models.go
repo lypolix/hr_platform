@@ -44,6 +44,7 @@ type University struct {
 	Login        string
 	PasswordHash string
 	Inn          string
+	Contacts     string
 	Confirmed    bool
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
@@ -54,6 +55,7 @@ type Vacancy struct {
 	CompanyID        uuid.UUID
 	Title            string
 	Description      string
+	Salary           int32
 	Contacts         string
 	Requirements     string
 	Responsibilities string

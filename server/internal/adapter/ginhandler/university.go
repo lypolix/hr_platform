@@ -35,6 +35,7 @@ type (
 		Password string `json:"password" validate:"required"`
 		Title    string `json:"title" validate:"required"`
 		INN      string `json:"inn" validate:"required"`
+		Contacts string `json:"contacts" validate:"required"`
 	}
 )
 
@@ -124,12 +125,13 @@ func (h *universityHandlers) SignUp(c *gin.Context) {
 		Password: request.Password,
 		Title:    request.Title,
 		INN:      request.INN,
+		Contacts: request.Contacts,
 	})
 	if err != nil {
 		h.logger.ErrorContext(ctx, "error during sign up", "err", err)
 
 		if errors.Is(err, domain.ErrConflict) {
-			c.JSON(http.StatusConflict, gin.H{"message": "login already taken"})
+			c.JSON(http.StatusConflict, gin.H{"message": "login or inn already taken"})
 		} else {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "internal server error"})
 		}

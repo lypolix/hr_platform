@@ -14,6 +14,7 @@ type (
 		login        string
 		passwordHash string
 		inn          string
+		contacts     string
 		confirmed    bool
 		createdAt    time.Time
 		updatedAt    time.Time
@@ -25,6 +26,7 @@ type (
 		Login        string
 		PasswordHash string
 		INN          string
+		Contacts     string
 		Confirmed    bool
 		CreatedAt    time.Time
 		UpdatedAt    time.Time
@@ -35,6 +37,7 @@ type (
 		Login        string
 		PasswordHash string
 		INN          string
+		Contacts     string
 	}
 )
 
@@ -45,7 +48,10 @@ func (u *University) Immutable() UniversityImmutable {
 		Login:        u.login,
 		PasswordHash: u.passwordHash,
 		INN:          u.inn,
+		Contacts:     u.contacts,
 		Confirmed:    u.confirmed,
+		CreatedAt:    u.createdAt,
+		UpdatedAt:    u.updatedAt,
 	}
 }
 
@@ -94,6 +100,7 @@ func CreateUniversity(attrs CreateUniversityAttrs, at time.Time) (*University, e
 		login:        attrs.Login,
 		passwordHash: attrs.PasswordHash,
 		inn:          attrs.INN,
+		contacts:     attrs.Contacts,
 		confirmed:    false,
 		createdAt:    at,
 		updatedAt:    at,
@@ -109,6 +116,7 @@ func ReconstructUniversity(immutable UniversityImmutable) (*University, error) {
 		login:        immutable.Login,
 		passwordHash: immutable.PasswordHash,
 		inn:          immutable.INN,
+		contacts:     immutable.Contacts,
 		confirmed:    immutable.Confirmed,
 		createdAt:    immutable.CreatedAt,
 		updatedAt:    immutable.UpdatedAt,

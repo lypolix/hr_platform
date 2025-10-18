@@ -6,6 +6,7 @@ CREATE TABLE universities (
     login VARCHAR(256) NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
     inn VARCHAR(32) NOT NULL UNIQUE,
+    contacts VARCHAR(256) NOT NULL,
     confirmed BOOLEAN NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL
@@ -36,6 +37,7 @@ CREATE TABLE vacancies (
     company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
     title VARCHAR(512) NOT NULL,
     description TEXT NOT NULL,
+    salary INTEGER NOT NULL,
     contacts TEXT NOT NULL,
     requirements TEXT NOT NULL,
     responsibilities TEXT NOT NULL,

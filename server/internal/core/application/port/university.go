@@ -18,6 +18,7 @@ type SignUpUniversityData struct {
 	Password string
 	Title    string
 	INN      string
+	Contacts string
 }
 
 type SignInUniversityData struct {

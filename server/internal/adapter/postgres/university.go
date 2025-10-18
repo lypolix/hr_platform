@@ -36,6 +36,7 @@ func (r *universityRepo) GetByID(ctx context.Context, id uuid.UUID) (*domain.Uni
 		PasswordHash: universityFromDB.PasswordHash,
 		INN:          universityFromDB.Inn,
 		Confirmed:    universityFromDB.Confirmed,
+		Contacts:     universityFromDB.Contacts,
 		CreatedAt:    universityFromDB.CreatedAt,
 		UpdatedAt:    universityFromDB.UpdatedAt,
 	})
@@ -62,6 +63,7 @@ func (r *universityRepo) GetByLogin(ctx context.Context, login string) (*domain.
 		PasswordHash: universityFromDB.PasswordHash,
 		INN:          universityFromDB.Inn,
 		Confirmed:    universityFromDB.Confirmed,
+		Contacts:     universityFromDB.Contacts,
 		CreatedAt:    universityFromDB.CreatedAt,
 		UpdatedAt:    universityFromDB.UpdatedAt,
 	})
@@ -103,6 +105,7 @@ func (r *universityRepo) create(ctx context.Context, university *domain.Universi
 		Inn:          universityImmutable.INN,
 		Confirmed:    universityImmutable.Confirmed,
 		PasswordHash: universityImmutable.PasswordHash,
+		Contacts:     universityImmutable.Contacts,
 		CreatedAt:    universityImmutable.CreatedAt,
 		UpdatedAt:    universityImmutable.UpdatedAt,
 	})
@@ -126,6 +129,7 @@ func (r *universityRepo) update(ctx context.Context, university *domain.Universi
 		Inn:          universityImmutable.INN,
 		Confirmed:    universityImmutable.Confirmed,
 		PasswordHash: universityImmutable.PasswordHash,
+		Contacts:     universityImmutable.Contacts,
 		CreatedAt:    universityImmutable.CreatedAt,
 		UpdatedAt:    universityImmutable.UpdatedAt,
 	})
