@@ -336,7 +336,7 @@
                                 <td style="font-weight: 600;">${salary}</td>
                                 <td style="font-weight: 700; color: ${matchColor};">${app.match_score}%</td>
                                 <td>
-                                    <select class="status-select ${currentStatus}" onchange="updateStatus('${app.id}', this.value, this)">
+                                    <select class="status-select ${currentStatus}" data-old-value="${currentStatus}" onchange="this.dataset.oldValue = this.dataset.oldValue || this.value; updateStatus('${app.id}', this.value, this)">
                                         <option value="new" ${currentStatus === 'new' ? 'selected' : ''}>🔵 Новый</option>
                                         <option value="in_review" ${currentStatus === 'in_review' ? 'selected' : ''}>🟠 В работе</option>
                                         <option value="accepted" ${currentStatus === 'accepted' ? 'selected' : ''}>🟢 Принят</option>
@@ -361,6 +361,9 @@
         }
 
         async function updateStatus(applicationId, newStatus, selectElement) {
+            // Сохраняем старое значение перед изменением
+            const oldStatus = selectElement.dataset.oldValue || selectElement.value;
+            
             try {
                 const response = await fetch(`/api/applications/${applicationId}/status`, {
                     method: 'PUT',
@@ -374,6 +377,14 @@
                     // Обновляем цвет выпадающего списка
                     if (selectElement) {
                         selectElement.className = `status-select ${newStatus}`;
+                        // Обновляем сохраненное значение после успешного изменения
+                        selectElement.dataset.oldValue = newStatus;
+                    }
+                    
+                    // Обновляем статус в массиве откликов
+                    const app = companyApplications.find(a => a.id === applicationId);
+                    if (app) {
+                        app.status = newStatus;
                     }
                     
                     // Перезагружаем статистику
@@ -387,11 +398,14 @@
                         generalPool = poolData.pool || [];
                         displayGeneralPool();
                     }
+                    
+                    console.log(`Статус отклика ${applicationId} изменен: ${oldStatus} → ${newStatus}`);
                 } else {
                     alert('Ошибка обновления статуса: ' + data.error);
                     // Вернуть старое значение в select
                     if (selectElement) {
-                        selectElement.value = selectElement.dataset.oldValue || 'new';
+                        selectElement.value = oldStatus;
+                        selectElement.className = `status-select ${oldStatus}`;
                     }
                 }
             } catch (error) {
@@ -399,7 +413,8 @@
                 alert('Ошибка обновления статуса');
                 // Вернуть старое значение в select
                 if (selectElement) {
-                    selectElement.value = selectElement.dataset.oldValue || 'new';
+                    selectElement.value = oldStatus;
+                    selectElement.className = `status-select ${oldStatus}`;
                 }
             }
         }
@@ -454,7 +469,7 @@
                         <td style="font-weight: 600;">${salary}</td>
                         <td style="font-weight: 700; color: ${matchColor};">${app.match_score}%</td>
                         <td>
-                            <select class="status-select ${currentStatus}" onchange="updateStatus('${app.id}', this.value, this)">
+                            <select class="status-select ${currentStatus}" data-old-value="${currentStatus}" onchange="this.dataset.oldValue = this.dataset.oldValue || this.value; updateStatus('${app.id}', this.value, this)">
                                 <option value="new" ${currentStatus === 'new' ? 'selected' : ''}>🔵 Новый</option>
                                 <option value="in_review" ${currentStatus === 'in_review' ? 'selected' : ''}>🟠 В работе</option>
                                 <option value="accepted" ${currentStatus === 'accepted' ? 'selected' : ''}>🟢 Принят</option>

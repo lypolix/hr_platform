@@ -275,7 +275,7 @@
     "salary_from": 87000,
     "match_score": 80,
     "status": "accepted",
-    "status_updated_at": "2025-10-18T21:17:10.653437",
+    "status_updated_at": "2025-10-18T22:10:51.742111",
     "id": "app_016"
   },
   {
@@ -309,8 +309,8 @@
     "experience_years": 0,
     "salary_from": 79000,
     "match_score": 82,
-    "status": "accepted",
-    "status_updated_at": "2025-10-18T21:17:06.552391",
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T22:10:44.192593",
     "id": "app_018"
   },
   {
@@ -326,8 +326,8 @@
     "experience_years": 0,
     "salary_from": 87000,
     "match_score": 65,
-    "status": "new",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T22:06:19.269914",
     "id": "app_019"
   },
   {
@@ -362,8 +362,8 @@
     "experience_years": 9,
     "salary_from": 109000,
     "match_score": 73,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T21:08:23.723849",
+    "status": "new",
+    "status_updated_at": "2025-10-18T22:10:54.040113",
     "id": "app_021"
   },
   {
@@ -418,8 +418,8 @@
     "experience_years": 0,
     "salary_from": null,
     "match_score": 80,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T21:17:00.289486",
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T22:10:58.410880",
     "id": "app_024"
   },
   {
@@ -453,8 +453,8 @@
     "experience_years": 1,
     "salary_from": 75000,
     "match_score": 81,
-    "status": "new",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T22:13:28.354276",
     "id": "app_026"
   },
   {
@@ -473,8 +473,8 @@
     "experience_years": 0,
     "salary_from": null,
     "match_score": 74,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T22:00:36.033905",
     "id": "app_027"
   },
   {
@@ -491,8 +491,8 @@
     "experience_years": 9,
     "salary_from": null,
     "match_score": 89,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T22:00:48.811233",
     "id": "app_028"
   },
   {
@@ -524,8 +524,8 @@
     "experience_years": 9,
     "salary_from": null,
     "match_score": 83,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T22:00:38.497973",
     "id": "app_030"
   },
   {
@@ -539,8 +539,8 @@
     "experience_years": 1,
     "salary_from": 68000,
     "match_score": 81,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T22:00:34.848929",
     "id": "app_031"
   },
   {
@@ -559,8 +559,8 @@
     "experience_years": 9,
     "salary_from": null,
     "match_score": 89,
-    "status": "new",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T22:13:26.935382",
     "id": "app_032"
   },
   {
@@ -580,8 +580,8 @@
     "experience_years": 0,
     "salary_from": null,
     "match_score": 90,
-    "status": "in_review",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T22:13:23.745189",
     "id": "app_033"
   },
   {
@@ -597,8 +597,8 @@
     "experience_years": 7,
     "salary_from": null,
     "match_score": 74,
-    "status": "new",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T22:00:23.276224",
     "id": "app_034"
   },
   {
@@ -612,8 +612,8 @@
     "experience_years": 0,
     "salary_from": 88000,
     "match_score": 68,
-    "status": "accepted",
-    "status_updated_at": "2025-10-18T12:00:00",
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T22:12:00.626032",
     "id": "app_035"
   },
   {

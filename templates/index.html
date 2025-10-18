@@ -1847,6 +1847,13 @@ Backend Python Developer (Middle)
                         selectElement.className = `status-select ${newStatus}`;
                     }
                     
+                    // Обновляем статистику в квадратиках
+                    await loadCompaniesStats();
+                    
+                    // Закрываем и обновляем модальное окно статуса, если оно открыто
+                    const statusModals = document.querySelectorAll('[id^="modal_status_"]');
+                    statusModals.forEach(modal => modal.remove());
+                    
                     // Показываем сообщение
                     console.log(`Статус отклика ${applicationId} изменен на ${newStatus}`);
                 } else {
@@ -1869,6 +1876,99 @@ Backend Python Developer (Middle)
         // Экспорт данных
         function exportData(format) {
             window.location.href = `${API_BASE}/export/${format}?type=parsed`;
+        }
+
+        // Показать отклики по статусу
+        async function showApplicationsByStatus(status, title) {
+            try {
+                const response = await fetch(`${API_BASE}/applications`);
+                const data = await response.json();
+
+                if (data.success) {
+                    // Фильтруем по статусу
+                    let filtered = data.applications;
+                    if (status !== 'all') {
+                        filtered = data.applications.filter(app => app.status === status);
+                    }
+
+                    if (filtered.length === 0) {
+                        alert(`Нет откликов со статусом "${title}"`);
+                        return;
+                    }
+
+                    const modalId = 'modal_status_' + status;
+                    
+                    let html = `
+                        <div id="${modalId}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; align-items: center; justify-content: center;" onclick="this.remove();">
+                            <div style="background: white; padding: 30px; border-radius: 4px; max-width: 1200px; max-height: 80vh; overflow-y: auto; width: 90%;" onclick="event.stopPropagation()">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <h2 style="color: #D00E46; margin: 0;">${title}</h2>
+                                    <button onclick="this.closest('[style*=fixed]').remove();" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
+                                </div>
+                                
+                                <p style="color: #666; margin-bottom: 20px;">Найдено откликов: <strong>${filtered.length}</strong></p>
+                                
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: #f5f5f5; border-bottom: 2px solid #D00E46;">
+                                            <th style="padding: 10px; text-align: left;">Кандидат</th>
+                                            <th style="padding: 10px; text-align: left;">Вакансия</th>
+                                            <th style="padding: 10px; text-align: left;">Специализации</th>
+                                            <th style="padding: 10px; text-align: center;">Опыт</th>
+                                            <th style="padding: 10px; text-align: right;">Зарплата</th>
+                                            <th style="padding: 10px; text-align: center;">Совпадение</th>
+                                            <th style="padding: 10px; text-align: center; width: 200px;">Статус</th>
+                                            <th style="padding: 10px; text-align: center;">Резюме</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                    `;
+
+                    filtered.forEach(app => {
+                        const salary = app.salary_from ? `${app.salary_from.toLocaleString('ru-RU')} ₽` : 'Не указана';
+                        const matchColor = app.match_score >= 80 ? '#4CAF50' : app.match_score >= 60 ? '#C49A6C' : '#999';
+                        const currentStatus = app.status || 'new';
+                        
+                        html += `
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <td style="padding: 10px;">${app.candidate_name}</td>
+                                <td style="padding: 10px; font-size: 13px;"><strong>${app.vacancy_title}</strong><br><span style="color: #666;">${app.company}</span></td>
+                                <td style="padding: 10px; font-size: 13px; color: #666;">${app.specializations.join(', ')}</td>
+                                <td style="padding: 10px; text-align: center;">${app.experience_years} ${app.experience_years === 1 ? 'год' : app.experience_years < 5 ? 'года' : 'лет'}</td>
+                                <td style="padding: 10px; text-align: right; font-weight: 600;">${salary}</td>
+                                <td style="padding: 10px; text-align: center; font-weight: 700; color: ${matchColor};">${app.match_score}%</td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <select class="status-select ${currentStatus}" onchange="updateApplicationStatus('${app.id}', this.value, this)">
+                                        <option value="new" ${currentStatus === 'new' ? 'selected' : ''}>🔵 Новый</option>
+                                        <option value="in_review" ${currentStatus === 'in_review' ? 'selected' : ''}>🟠 В работе</option>
+                                        <option value="accepted" ${currentStatus === 'accepted' ? 'selected' : ''}>🟢 Принят</option>
+                                        <option value="rejected" ${currentStatus === 'rejected' ? 'selected' : ''}>🔴 Отказ</option>
+                                    </select>
+                                </td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <button onclick="downloadResume('${app.resume_filename}')" style="background: #C49A6C; color: white; border: none; padding: 6px 12px; border-radius: 2px; cursor: pointer; font-size: 12px;">
+                                        Скачать
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    html += `
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+
+                    document.body.insertAdjacentHTML('beforeend', html);
+                } else {
+                    alert('Не удалось загрузить отклики');
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки откликов:', error);
+                alert('Ошибка загрузки откликов');
+            }
         }
 
         // Загрузка общего банка резюме
@@ -1954,11 +2054,11 @@ Backend Python Developer (Middle)
                     let html = '<div style="background: #f8f8f8; padding: 20px; border-radius: 4px; margin-bottom: 20px;">';
                     html += '<h3 style="margin-bottom: 15px; color: #D00E46;">Общая статистика</h3>';
                     html += '<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;">';
-                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #D00E46;">${totalStats.total || 0}</div><div style="color: #666; font-size: 0.9em;">Всего откликов</div></div>`;
-                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #2196F3;">${totalStats.new || 0}</div><div style="color: #666; font-size: 0.9em;">Новых</div></div>`;
-                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #FF9800;">${totalStats.in_review || 0}</div><div style="color: #666; font-size: 0.9em;">В работе</div></div>`;
-                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #4CAF50;">${totalStats.accepted || 0}</div><div style="color: #666; font-size: 0.9em;">Принято</div></div>`;
-                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #F44336;">${totalStats.rejected || 0}</div><div style="color: #666; font-size: 0.9em;">Отказов</div></div>`;
+                    html += `<div style="text-align: center; cursor: pointer; padding: 15px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.background='rgba(208,14,70,0.05)'" onmouseout="this.style.background='transparent'" onclick="showApplicationsByStatus('all', 'Все отклики')"><div style="font-size: 2em; font-weight: 700; color: #D00E46;">${totalStats.total || 0}</div><div style="color: #666; font-size: 0.9em;">Всего откликов</div></div>`;
+                    html += `<div style="text-align: center; cursor: pointer; padding: 15px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.background='rgba(33,150,243,0.05)'" onmouseout="this.style.background='transparent'" onclick="showApplicationsByStatus('new', 'Новые отклики')"><div style="font-size: 2em; font-weight: 700; color: #2196F3;">${totalStats.new || 0}</div><div style="color: #666; font-size: 0.9em;">Новых</div></div>`;
+                    html += `<div style="text-align: center; cursor: pointer; padding: 15px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,152,0,0.05)'" onmouseout="this.style.background='transparent'" onclick="showApplicationsByStatus('in_review', 'Отклики в работе')"><div style="font-size: 2em; font-weight: 700; color: #FF9800;">${totalStats.in_review || 0}</div><div style="color: #666; font-size: 0.9em;">В работе</div></div>`;
+                    html += `<div style="text-align: center; cursor: pointer; padding: 15px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.background='rgba(76,175,80,0.05)'" onmouseout="this.style.background='transparent'" onclick="showApplicationsByStatus('accepted', 'Принятые отклики')"><div style="font-size: 2em; font-weight: 700; color: #4CAF50;">${totalStats.accepted || 0}</div><div style="color: #666; font-size: 0.9em;">Принято</div></div>`;
+                    html += `<div style="text-align: center; cursor: pointer; padding: 15px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.background='rgba(244,67,54,0.05)'" onmouseout="this.style.background='transparent'" onclick="showApplicationsByStatus('rejected', 'Отказы')"><div style="font-size: 2em; font-weight: 700; color: #F44336;">${totalStats.rejected || 0}</div><div style="color: #666; font-size: 0.9em;">Отказов</div></div>`;
                     html += '</div></div>';
 
                     html += '<table style="width: 100%; border-collapse: collapse;">';
