@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/google/uuid"
@@ -81,6 +82,9 @@ func (s *universityService) SignUp(ctx context.Context, data port.SignUpUniversi
 func (s *universityService) SignIn(ctx context.Context, data port.SignInUniversityData) (*port.UniversityWithTokenResult, error) {
 	university, err := s.universityRepo.GetByLogin(ctx, data.Login)
 	if err != nil {
+		if errors.Is(err, domain.ErrNotFound) {
+			return nil, domain.ErrUnauthorized
+		}
 		return nil, fmt.Errorf("error getting university by login: %w", err)
 	}
 
