@@ -17,7 +17,7 @@ services:
     env_file:
       - ./server/.env
     ports:
-      - 80:80
+      - 8081:80
     volumes:
       - ./server/:/app/
 
