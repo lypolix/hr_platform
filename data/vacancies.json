@@ -1,0 +1,221 @@
+[
+  {
+    "id": "vac_001",
+    "title": "Токарь 4-5 разряда",
+    "specialization": "Токарь",
+    "company": "ПАО Московский машиностроительный завод",
+    "salary_from": 70000,
+    "salary_to": 90000,
+    "experience_years": 3,
+    "skills": [
+      "Токарный станок",
+      "ЧПУ",
+      "Чтение чертежей"
+    ],
+    "description": "Требуется токарь для работы на токарных станках с ЧПУ",
+    "is_internship": false,
+    "location": "Руднево"
+  },
+  {
+    "id": "vac_002",
+    "title": "Логист на производстве",
+    "specialization": "Логист",
+    "company": "Технополис Москва",
+    "salary_from": 75000,
+    "salary_to": 95000,
+    "experience_years": 2,
+    "skills": [
+      "WMS",
+      "ERP",
+      "1С"
+    ],
+    "description": "Требуется логист для управления складскими операциями",
+    "is_internship": false,
+    "location": "Алабушево"
+  },
+  {
+    "id": "vac_003",
+    "title": "Инженер-конструктор",
+    "specialization": "Инженер-конструктор",
+    "company": "НПО Техмаш",
+    "salary_from": 90000,
+    "salary_to": 120000,
+    "experience_years": 3,
+    "skills": [
+      "AutoCAD",
+      "SolidWorks",
+      "КОМПАС-3D"
+    ],
+    "description": "Разработка конструкторской документации, проектирование изделий",
+    "is_internship": false,
+    "location": "Руднево"
+  },
+  {
+    "id": "vac_004",
+    "title": "Мастер производственного участка",
+    "specialization": "Мастер участка",
+    "company": "Завод металлоконструкций",
+    "salary_from": 80000,
+    "salary_to": 100000,
+    "experience_years": 5,
+    "skills": [
+      "Управление персоналом",
+      "Организация производства",
+      "Контроль качества"
+    ],
+    "description": "Руководство производственным участком, контроль качества продукции",
+    "is_internship": false,
+    "location": "Алабушево"
+  },
+  {
+    "id": "vac_005",
+    "title": "Сварщик аргонно-дуговой сварки",
+    "specialization": "Сварщик",
+    "company": "Строймаш",
+    "salary_from": 70000,
+    "salary_to": 95000,
+    "experience_years": 2,
+    "skills": [
+      "Аргонная сварка",
+      "Чтение чертежей",
+      "Контроль швов"
+    ],
+    "description": "Аргонно-дуговая сварка металлоконструкций",
+    "is_internship": false,
+    "location": "Алабушево"
+  },
+  {
+    "id": "vac_006",
+    "title": "Инженер по автоматизации производства",
+    "specialization": "Инженер по автоматизации",
+    "company": "Автоматика и Контроль",
+    "salary_from": 100000,
+    "salary_to": 140000,
+    "experience_years": 3,
+    "skills": [
+      "ПЛК",
+      "SCADA",
+      "Автоматизация"
+    ],
+    "description": "Разработка и внедрение систем автоматизации производства",
+    "is_internship": false,
+    "location": "Ангстрем"
+  },
+  {
+    "id": "vac_007",
+    "title": "Фрезеровщик на станках с ЧПУ",
+    "specialization": "Фрезеровщик",
+    "company": "Точмех",
+    "salary_from": 65000,
+    "salary_to": 85000,
+    "experience_years": 2,
+    "skills": [
+      "Фрезерование",
+      "ЧПУ",
+      "Измерительный инструмент"
+    ],
+    "description": "Фрезерная обработка деталей на станках с ЧПУ",
+    "is_internship": false,
+    "location": "Микрон"
+  },
+  {
+    "id": "vac_008",
+    "title": "Инженер по охране труда",
+    "specialization": "Инженер по охране труда",
+    "company": "Промышленная группа",
+    "salary_from": 70000,
+    "salary_to": 90000,
+    "experience_years": 2,
+    "skills": [
+      "Охрана труда",
+      "Промышленная безопасность",
+      "Специальная оценка условий труда"
+    ],
+    "description": "Обеспечение безопасности труда на производстве",
+    "is_internship": false,
+    "location": "МИЭТ"
+  },
+  {
+    "id": "vac_009",
+    "title": "Слесарь-ремонтник 4 разряда",
+    "specialization": "Слесарь",
+    "company": "Ремонтно-механический завод",
+    "salary_from": 60000,
+    "salary_to": 80000,
+    "experience_years": 3,
+    "skills": [
+      "Ремонт оборудования",
+      "Слесарные работы",
+      "Чтение схем"
+    ],
+    "description": "Ремонт и обслуживание производственного оборудования",
+    "is_internship": false,
+    "location": "Алабушево"
+  },
+  {
+    "id": "vac_010",
+    "title": "Водитель погрузчика",
+    "specialization": "Водитель погрузчика",
+    "company": "Логистический центр Север",
+    "salary_from": 55000,
+    "salary_to": 70000,
+    "experience_years": 1,
+    "skills": [
+      "Вождение погрузчика",
+      "Складские операции"
+    ],
+    "description": "Работа на электропогрузчике на складе",
+    "is_internship": false,
+    "location": "МИЭТ"
+  },
+  {
+    "id": "vac_011",
+    "title": "Грузчик на склад",
+    "specialization": "Грузчик",
+    "company": "Складской комплекс Юг",
+    "salary_from": 45000,
+    "salary_to": 55000,
+    "experience_years": 0,
+    "skills": [
+      "Физическая выносливость",
+      "Работа на складе"
+    ],
+    "description": "Погрузочно-разгрузочные работы на складе",
+    "is_internship": true,
+    "location": "Ангстрем"
+  },
+  {
+    "id": "vac_012",
+    "title": "Электромонтажник по силовым сетям",
+    "specialization": "Электромонтажник",
+    "company": "Энергомонтаж",
+    "salary_from": 65000,
+    "salary_to": 90000,
+    "experience_years": 2,
+    "skills": [
+      "Электромонтаж",
+      "Силовые сети",
+      "Электрические схемы"
+    ],
+    "description": "Монтаж и обслуживание силовых электросетей",
+    "is_internship": false,
+    "location": "Микрон"
+  },
+  {
+    "id": "vac_013",
+    "title": "Инженер по качеству",
+    "specialization": "Инженер по качеству",
+    "company": "Производственное объединение",
+    "salary_from": 75000,
+    "salary_to": 100000,
+    "experience_years": 2,
+    "skills": [
+      "Контроль качества",
+      "ISO 9001",
+      "Статистические методы"
+    ],
+    "description": "Контроль качества продукции, ведение документации СМК",
+    "is_internship": false,
+    "location": "Ангстрем"
+  }
+]

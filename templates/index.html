@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система анализа резюме - Технополис Москва</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 400;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 0;
+            color: #4D4D4F;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo {
+            width: 350px;
+            height: auto;
+            flex-shrink: 0;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .header-text h1 {
+            color: #4D4D4F;
+            margin-bottom: 8px;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #4D4D4F;
+            font-size: 0.95em;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 14px 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 400;
+            color: #4D4D4F;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .tab.active {
+            color: #D00E46;
+            border-bottom-color: #D00E46;
+            font-weight: 400;
+        }
+
+        .tab:hover {
+            color: #D00E46;
+            background: rgba(208, 14, 70, 0.02);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #4D4D4F;
+            margin-bottom: 24px;
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            background: #D00E46;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        button:hover {
+            background: #B00C3A;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #C49A6C;
+        }
+
+        .btn-secondary:hover {
+            background: #A88550;
+        }
+
+        .btn-success {
+            background: #4D4D4F;
+        }
+
+
+        .btn-success:hover {
+            background: #3a3a3c;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #D00E46;
+            box-shadow: 0 2px 8px rgba(208, 14, 70, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #D00E46;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            color: #4D4D4F;
+            font-size: 0.85em;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        #skillsCloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 24px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            min-height: 200px;
+        }
+
+        .skill-tag {
+            padding: 6px 16px;
+            border-radius: 2px;
+            background: #D00E46;
+            color: white;
+            font-weight: 400;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            letter-spacing: 0.02em;
+        }
+
+        .skill-tag:hover {
+            background: #B00C3A;
+        }
+
+        .info {
+            padding: 12px;
+            border-radius: 2px;
+            background: rgba(196, 154, 108, 0.1);
+            color: #4D4D4F;
+            border-left: 3px solid #C49A6C;
+            font-size: 0.9em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 0.9em;
+            resize: vertical;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #D00E46;
+        }
+
+        .resume-card {
+            background: white;
+            padding: 24px;
+            border-radius: 2px;
+            margin-bottom: 12px;
+            border: 1px solid #e0e0e0;
+            border-left: 3px solid #D00E46;
+            transition: all 0.2s ease;
+        }
+
+        .resume-card:hover {
+            border-left-width: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .resume-filename {
+            font-weight: 700;
+            font-size: 1.05em;
+            color: #4D4D4F;
+            letter-spacing: -0.01em;
+        }
+
+        .score-badge {
+            padding: 6px 18px;
+            border-radius: 2px;
+            font-weight: 700;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .score-excellent { background: #4D4D4F; }
+        .score-good { background: #C49A6C; }
+        .score-average { background: #4D4D4F; opacity: 0.7; }
+        .score-poor { background: #D00E46; }
+
+        .resume-details {
+            color: #4D4D4F;
+            margin-top: 12px;
+            line-height: 1.7;
+            font-size: 0.9em;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: rgba(208, 14, 70, 0.08);
+            color: #D00E46;
+            padding: 4px 12px;
+            border-radius: 2px;
+            font-size: 0.8em;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #D00E46;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4D4D4F;
+            font-weight: 400;
+            font-size: 0.85em;
+            letter-spacing: 0.02em;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #D00E46;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #4D4D4F;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #D00E46;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: rgba(208, 14, 70, 0.08);
+            color: #D00E46;
+            padding: 16px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            border-left: 3px solid #D00E46;
+        }
+
+        .success {
+            background: rgba(77, 77, 79, 0.08);
+            color: #4D4D4F;
+            padding: 16px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            border-left: 3px solid #4D4D4F;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .explanation {
+            background: rgba(196, 154, 108, 0.1);
+            padding: 12px;
+            border-radius: 2px;
+            margin-top: 12px;
+            color: #4D4D4F;
+            font-size: 0.85em;
+            border-left: 3px solid #C49A6C;
+            line-height: 1.6;
+        }
+
+        .status-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            background: white;
+            min-width: 150px;
+        }
+        
+        .status-select.new {
+            border-color: #2196F3;
+            color: #1976D2;
+        }
+        
+        .status-select.in_review {
+            border-color: #FF9800;
+            color: #F57C00;
+        }
+        
+        .status-select.rejected {
+            border-color: #F44336;
+            color: #D32F2F;
+        }
+        
+        .status-select.accepted {
+            border-color: #4CAF50;
+            color: #388E3C;
+        }
+        
+        .status-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(208, 14, 70, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="/static/images/technopolis_logo.svg" alt="Технополис Москва">
+            </div>
+            <div class="header-text">
+                <h1>Система анализа резюме</h1>
+                <p class="subtitle">Автоматический подбор кандидатов для промышленных предприятий</p>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('overview')">Обзор</button>
+            <button class="tab" onclick="showTab('scoring')">Скоринг</button>
+            <button class="tab" onclick="showTab('browse')">Просмотр резюме</button>
+            <button class="tab" onclick="showTab('pool')">Общий банк резюме</button>
+            <button class="tab" onclick="showTab('companies')">Статистика компаний</button>
+        </div>
+
+        <!-- Вкладка: Обзор -->
+        <div id="overview" class="tab-content active">
+            <div class="section">
+                <h2>Быстрый старт</h2>
+                <div class="action-buttons">
+                    <button onclick="parseResumes()">Распарсить все резюме</button>
+                    <button class="btn-success" onclick="loadStatistics()">Обновить статистику</button>
+                    <button class="btn-secondary" onclick="exportData('json')">Экспорт JSON</button>
+                    <button class="btn-secondary" onclick="exportData('csv')">Выгрузить таблицей</button>
+                </div>
+                <div id="parseStatus"></div>
+            </div>
+
+            <div class="section">
+                <h2>Вакансии по производственным площадкам</h2>
+                
+                <!-- Навигация по площадкам -->
+                <div style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; border-bottom: 2px solid #D00E46; padding-bottom: 10px;">
+                    <button class="location-tab active" data-location="all" onclick="filterByLocation('all')" style="padding: 10px 20px; background: none; border: none; color: #D00E46; font-weight: 700; cursor: pointer; border-bottom: 3px solid #D00E46; transition: all 0.3s;">ВСЕ</button>
+                    <button class="location-tab" data-location="Алабушево" onclick="filterByLocation('Алабушево')" style="padding: 10px 20px; background: none; border: none; color: #999; font-weight: 400; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s;">АЛАБУШЕВО</button>
+                    <button class="location-tab" data-location="Ангстрем" onclick="filterByLocation('Ангстрем')" style="padding: 10px 20px; background: none; border: none; color: #999; font-weight: 400; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s;">АНГСТРЕМ</button>
+                    <button class="location-tab" data-location="Микрон" onclick="filterByLocation('Микрон')" style="padding: 10px 20px; background: none; border: none; color: #999; font-weight: 400; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s;">МИКРОН</button>
+                    <button class="location-tab" data-location="МИЭТ" onclick="filterByLocation('МИЭТ')" style="padding: 10px 20px; background: none; border: none; color: #999; font-weight: 400; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s;">МИЭТ</button>
+                    <button class="location-tab" data-location="Печатники" onclick="filterByLocation('Печатники')" style="padding: 10px 20px; background: none; border: none; color: #999; font-weight: 400; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s;">ПЕЧАТНИКИ</button>
+                    <button class="location-tab" data-location="Руднево" onclick="filterByLocation('Руднево')" style="padding: 10px 20px; background: none; border: none; color: #999; font-weight: 400; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s;">РУДНЕВО</button>
+                </div>
+
+                <!-- Статистика по выбранной площадке -->
+                <div id="locationStats" style="background: white; padding: 20px; border: 1px solid #e0e0e0; border-radius: 2px; margin-bottom: 20px;">
+                    <div class="loading"><div class="spinner"></div><p>Загрузка...</p></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Статистика по зарплатам специалистов</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: white; padding: 20px; border: 1px solid #e0e0e0; border-radius: 2px;">
+                        <h3 style="margin-bottom: 15px; color: #D00E46;">Вакансии работодателей</h3>
+                        <div id="vacancySalaryStats" class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка статистики...</p>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 20px; border: 1px solid #e0e0e0; border-radius: 2px;">
+                        <h3 style="margin-bottom: 15px; color: #C49A6C;">Ожидания кандидатов</h3>
+                        <div id="candidateSalaryStats" class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка статистики...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Вакансии и отклики</h2>
+                <div id="vacanciesWithApplications" class="loading">
+                    <div class="spinner"></div>
+                    <p>Загрузка данных...</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Облако навыков</h2>
+                <div id="skillsCloud" class="loading">
+                    <div class="spinner"></div>
+                    <p>Загрузка навыков...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка: Скоринг -->
+        <div id="scoring" class="tab-content">
+            <div class="section">
+                <h2>Скоринг резюме по вакансии</h2>
+                <p style="color: #666; margin-bottom: 15px;">
+                    Вставьте текст вакансии, и система автоматически найдет и ранжирует наиболее подходящих кандидатов
+                </p>
+                <textarea id="vacancyText" placeholder="Вставьте описание вакансии здесь...
+
+Например:
+Backend Python Developer (Middle)
+
+Требования:
+- Опыт работы от 2 лет
+- Python, Django, Flask
+- PostgreSQL, Redis
+- Docker, Kubernetes
+- REST API
+"></textarea>
+                <button onclick="scoreResumes()">🔍 Найти кандидатов</button>
+            </div>
+
+            <div id="scoringResults"></div>
+        </div>
+
+        <!-- Вкладка: Просмотр -->
+        <div id="browse" class="tab-content">
+            <div class="section">
+                <h2>🔍 Фильтры</h2>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Специализация</label>
+                        <select id="filterSpec" onchange="loadResumes()">
+                            <option value="">Все</option>
+                            <option value="Логист">Логист</option>
+                            <option value="Токарь">Токарь</option>
+                            <option value="Инженер-конструктор">Инженер-конструктор</option>
+                            <option value="Водитель погрузчика">Водитель погрузчика</option>
+                            <option value="Слесарь">Слесарь</option>
+                            <option value="Мастер участка">Мастер участка</option>
+                            <option value="Грузчик">Грузчик</option>
+                            <option value="Инженер по автоматизации">Инженер по автоматизации</option>
+                            <option value="Сварщик">Сварщик</option>
+                            <option value="Электромонтажник">Электромонтажник</option>
+                            <option value="Инженер по охране труда">Инженер по охране труда</option>
+                            <option value="Инженер по качеству">Инженер по качеству</option>
+                            <option value="Фрезеровщик">Фрезеровщик</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Навык</label>
+                        <input type="text" id="filterSkill" placeholder="ERP, WMS..." onchange="loadResumes()">
+                    </div>
+                    <div class="filter-group">
+                        <label>Минимальный опыт (лет)</label>
+                        <input type="number" id="filterExp" placeholder="0" onchange="loadResumes()">
+                    </div>
+                    <div class="filter-group">
+                        <label>Ожидаемая ЗП от (руб.)</label>
+                        <input type="number" id="filterSalary" placeholder="50000" onchange="loadResumes()">
+                    </div>
+                </div>
+            </div>
+
+            <div id="resumesList"></div>
+        </div>
+
+        <!-- Вкладка: Общий банк резюме -->
+        <div id="pool" class="tab-content">
+            <div class="section">
+                <h2>Общий банк резюме</h2>
+                <p style="color: #666; margin-bottom: 20px;">Резюме, полученные по email и отклоненные кандидаты по всем компаниям</p>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Источник</label>
+                        <select id="poolFilterSource" onchange="loadGeneralPool()">
+                            <option value="">Все</option>
+                            <option value="email">Email</option>
+                            <option value="rejected_application">Отказ</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Специализация</label>
+                        <select id="poolFilterSpec" onchange="loadGeneralPool()">
+                            <option value="">Все</option>
+                            <option value="Логист">Логист</option>
+                            <option value="Токарь">Токарь</option>
+                            <option value="Инженер-конструктор">Инженер-конструктор</option>
+                            <option value="Водитель погрузчика">Водитель погрузчика</option>
+                            <option value="Слесарь">Слесарь</option>
+                            <option value="Мастер участка">Мастер участка</option>
+                            <option value="Грузчик">Грузчик</option>
+                            <option value="Инженер по автоматизации">Инженер по автоматизации</option>
+                            <option value="Сварщик">Сварщик</option>
+                            <option value="Электромонтажник">Электромонтажник</option>
+                            <option value="Инженер по охране труда">Инженер по охране труда</option>
+                            <option value="Инженер по качеству">Инженер по качеству</option>
+                            <option value="Фрезеровщик">Фрезеровщик</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="poolList"><div class="loading"><div class="spinner"></div><p>Загрузка...</p></div></div>
+            </div>
+        </div>
+
+        <!-- Вкладка: Статистика компаний -->
+        <div id="companies" class="tab-content">
+            <div class="section">
+                <h2>Статистика по компаниям</h2>
+                <p style="color: #666; margin-bottom: 20px;">Анализ откликов по статусам для каждой компании</p>
+                
+                <div id="companiesStats"><div class="loading"><div class="spinner"></div><p>Загрузка...</p></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        // Переключение вкладок
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            if (tabName === 'browse' && !skipAutoLoad) {
+                loadResumes();
+            } else if (tabName === 'pool') {
+                loadGeneralPool();
+            } else if (tabName === 'companies') {
+                loadCompaniesStats();
+            }
+            
+            // Сбрасываем флаг
+            skipAutoLoad = false;
+        }
+
+        // Фильтрация по навыку из облака
+        function filterBySkill(skillName) {
+            // Переключаемся на вкладку просмотра
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelectorAll('.tab')[2].classList.add('active'); // Третья вкладка
+            document.getElementById('browse').classList.add('active');
+            
+            // Устанавливаем фильтр по навыку
+            document.getElementById('filterSkill').value = skillName;
+            
+            // Загружаем резюме с фильтром
+            loadResumes();
+            
+            // Прокручиваем к началу страницы
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Фильтрация по специализации
+        function filterBySpecialization(specName) {
+            // Переключаемся на вкладку просмотра
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelectorAll('.tab')[2].classList.add('active'); // Третья вкладка
+            document.getElementById('browse').classList.add('active');
+            
+            // Устанавливаем фильтр по специализации
+            document.getElementById('filterSpecialization').value = specName;
+            
+            // Загружаем резюме с фильтром
+            loadResumes();
+            
+            // Прокручиваем к началу страницы
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Парсинг резюме
+        async function parseResumes() {
+            const status = document.getElementById('parseStatus');
+            status.innerHTML = '<div class="loading"><div class="spinner"></div><p>Парсинг резюме... Это может занять несколько минут</p></div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/parse`, { method: 'POST' });
+                const data = await response.json();
+
+                if (data.success) {
+                    status.innerHTML = `<div class="success">${data.message}. Обработано: ${data.total_resumes} резюме</div>`;
+                    loadStatistics();
+                    loadSalaryStats();
+                    loadSkillsCloud();
+                } else {
+                    status.innerHTML = `<div class="error">Ошибка: ${data.error}</div>`;
+                }
+            } catch (error) {
+                status.innerHTML = `<div class="error">Ошибка: ${error.message}</div>`;
+            }
+        }
+
+        // Загрузка статистики
+        async function loadStatistics() {
+            const container = document.getElementById('statsContainer');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Загрузка...</p></div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/statistics`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const stats = data.statistics;
+                    let html = '<div class="stats-grid">';
+                    
+                    html += `
+                        <div class="stat-card">
+                            <div class="stat-value">${stats.total_resumes}</div>
+                            <div class="stat-label">Всего резюме</div>
+                        </div>
+                    `;
+
+                    for (const [spec, count] of Object.entries(stats.specializations)) {
+                        html += `
+                            <div class="stat-card">
+                                <div class="stat-value">${count}</div>
+                                <div class="stat-label">${spec}</div>
+                            </div>
+                        `;
+                    }
+
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<div class="error">Статистика недоступна. Запустите парсинг.</div>`;
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="error">Ошибка загрузки: ${error.message}</div>`;
+            }
+        }
+
+        // Облако навыков
+        async function loadSkillsCloud() {
+            const container = document.getElementById('skillsCloud');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Загрузка...</p></div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/skills/top?limit=50`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const maxCount = Math.max(...data.skills.map(s => s.count));
+                    let html = '';
+
+                    data.skills.forEach(skill => {
+                        const size = 0.8 + (skill.count / maxCount) * 1.5;
+                        html += `<span class="skill-tag" style="font-size: ${size}em" 
+                                      title="${skill.count} резюме - кликните для поиска"
+                                      onclick="filterBySkill('${skill.name}')">${skill.name}</span>`;
+                    });
+
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="error">Навыки недоступны</div>';
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="error">Ошибка: ${error.message}</div>`;
+            }
+        }
+
+        // Глобальные переменные для графиков
+        let vacancySalaryChart = null;
+        let candidateSalaryChart = null;
+        let industryChart = null;
+        let industrySalaryChart = null;
+        let companyVacanciesChart = null;
+        let companyInternshipsChart = null;
+
+        // Отрасли промышленности
+        const INDUSTRIES = {
+            'Логистика и складское хозяйство': ['Логист', 'Кладовщик', 'Водитель погрузчика', 'Грузчик'],
+            'Машиностроение': ['Токарь', 'Фрезеровщик', 'Слесарь', 'Слесарь-ремонтник', 'Наладчик оборудования', 'Наладчик'],
+            'Инженерно-технические специальности': ['Инженер-конструктор', 'Инженер-технолог', 'Инженер по автоматизации', 'Инженер ПТО'],
+            'Контроль качества и охрана труда': ['Инженер по качеству', 'Инженер по охране труда', 'Контролер ОТК'],
+            'Производственное управление': ['Мастер участка', 'Начальник цеха', 'Нормировщик'],
+            'Сварочные и монтажные работы': ['Сварщик', 'Электромонтажник']
+        };
+
+        // Загрузка аналитики по отраслям
+        async function loadIndustryAnalytics() {
+            try {
+                const response = await fetch(`${API_BASE}/resumes`);
+                const data = await response.json();
+
+                if (data.success && data.resumes.length > 0) {
+                    // Группировка по отраслям
+                    const industryData = {};
+                    const industrySalaryData = {};
+
+                    data.resumes.forEach(resume => {
+                        const specs = resume.specializations || [];
+                        const salary = resume.salary_from;
+
+                        specs.forEach(spec => {
+                            // Определяем отрасль
+                            for (const [industry, specList] of Object.entries(INDUSTRIES)) {
+                                if (specList.includes(spec)) {
+                                    // Подсчет резюме
+                                    industryData[industry] = (industryData[industry] || 0) + 1;
+                                    
+                                    // Подсчет зарплат
+                                    if (salary != null && !isNaN(salary) && salary > 0) {
+                                        if (!industrySalaryData[industry]) {
+                                            industrySalaryData[industry] = [];
+                                        }
+                                        industrySalaryData[industry].push(salary);
+                                    }
+                                    break;
+                                }
+                            }
+                        });
+                    });
+
+                    // График распределения по отраслям
+                    const industryLabels = Object.keys(industryData);
+                    const industryCounts = Object.values(industryData);
+
+                    if (industryChart) industryChart.destroy();
+                    const ctx1 = document.getElementById('industryChart').getContext('2d');
+                    industryChart = new Chart(ctx1, {
+                        type: 'doughnut',
+                        data: {
+                            labels: industryLabels,
+                            datasets: [{
+                                data: industryCounts,
+                                backgroundColor: ['#D00E46', '#C49A6C', '#4D4D4F', '#E85D75', '#D4B896', '#6D6D6F']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { font: { size: 11 } }
+                                }
+                            }
+                        }
+                    });
+
+                    // График средних зарплат по отраслям
+                    const salaryLabels = [];
+                    const salaryValues = [];
+
+                    for (const [industry, salaries] of Object.entries(industrySalaryData)) {
+                        if (salaries.length > 0) {
+                            const avg = salaries.reduce((a, b) => a + b, 0) / salaries.length;
+                            salaryLabels.push(industry);
+                            salaryValues.push(Math.round(avg));
+                        }
+                    }
+
+                    if (industrySalaryChart) industrySalaryChart.destroy();
+                    const ctx2 = document.getElementById('industrySalaryChart').getContext('2d');
+                    industrySalaryChart = new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: salaryLabels,
+                            datasets: [{
+                                label: 'Средняя зарплата (₽)',
+                                data: salaryValues,
+                                backgroundColor: '#D00E46'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            indexAxis: 'y',
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value.toLocaleString('ru-RU') + ' ₽';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки аналитики по отраслям:', error);
+            }
+        }
+
+        // Загрузка статистики по вакансиям
+        async function loadVacancySalaryStats() {
+            const container = document.getElementById('vacancySalaryStats');
+            try {
+                const response = await fetch(`${API_BASE}/vacancies`);
+                const data = await response.json();
+
+                if (data.success && data.salary_stats && data.salary_stats.length > 0) {
+                    let html = '<table style="width: 100%; border-collapse: collapse;">';
+                    html += '<thead><tr style="background: #f5f5f5; border-bottom: 2px solid #D00E46;">';
+                    html += '<th style="padding: 10px; text-align: left;">Специализация</th>';
+                    html += '<th style="padding: 10px; text-align: right;">Средняя зарплата</th>';
+                    html += '<th style="padding: 10px; text-align: center;">Вакансий</th>';
+                    html += '</tr></thead><tbody>';
+                    
+                    data.salary_stats.forEach(item => {
+                        html += '<tr style="border-bottom: 1px solid #e0e0e0;">';
+                        html += `<td style="padding: 10px;">${item.spec}</td>`;
+                        html += `<td style="padding: 10px; text-align: right; font-weight: bold; color: #D00E46;">${Math.round(item.avg_salary).toLocaleString('ru-RU')} ₽</td>`;
+                        html += `<td style="padding: 10px; text-align: center;">${item.count}</td>`;
+                        html += '</tr>';
+                    });
+                    
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p style="color: #999;">Нет данных о зарплатах</p>';
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки статистики по вакансиям:', error);
+                container.innerHTML = '<p style="color: #D00E46;">Ошибка загрузки данных</p>';
+            }
+        }
+
+        // Загрузка статистики по кандидатам
+        async function loadCandidateSalaryStats() {
+            const container = document.getElementById('candidateSalaryStats');
+            try {
+                const response = await fetch(`${API_BASE}/resumes`);
+                const data = await response.json();
+
+                if (data.success && data.resumes.length > 0) {
+                    const salaryBySpec = {};
+                    
+                    data.resumes.forEach(resume => {
+                        const salary = resume.salary_from;
+                        if (salary != null && !isNaN(salary) && salary > 0 && resume.specializations) {
+                            resume.specializations.forEach(spec => {
+                                if (!salaryBySpec[spec]) salaryBySpec[spec] = [];
+                                salaryBySpec[spec].push(salary);
+                            });
+                        }
+                    });
+
+                    const avgSalaries = [];
+                    for (const [spec, salaries] of Object.entries(salaryBySpec)) {
+                        if (salaries.length > 0) {
+                            const avg = salaries.reduce((a, b) => a + b, 0) / salaries.length;
+                            if (!isNaN(avg) && isFinite(avg)) {
+                                avgSalaries.push({ spec, avg, count: salaries.length });
+                            }
+                        }
+                    }
+
+                    avgSalaries.sort((a, b) => b.avg - a.avg);
+
+                    if (avgSalaries.length > 0) {
+                        let html = '<table style="width: 100%; border-collapse: collapse;">';
+                        html += '<thead><tr style="background: #f5f5f5; border-bottom: 2px solid #C49A6C;">';
+                        html += '<th style="padding: 10px; text-align: left;">Специализация</th>';
+                        html += '<th style="padding: 10px; text-align: right;">Средняя зарплата</th>';
+                        html += '<th style="padding: 10px; text-align: center;">Кандидатов</th>';
+                        html += '</tr></thead><tbody>';
+                        
+                        avgSalaries.forEach(item => {
+                            html += '<tr style="border-bottom: 1px solid #e0e0e0;">';
+                            html += `<td style="padding: 10px;">${item.spec}</td>`;
+                            html += `<td style="padding: 10px; text-align: right; font-weight: bold; color: #C49A6C;">${Math.round(item.avg).toLocaleString('ru-RU')} ₽</td>`;
+                            html += `<td style="padding: 10px; text-align: center;">${item.count}</td>`;
+                            html += '</tr>';
+                        });
+                        
+                        html += '</tbody></table>';
+                        container.innerHTML = html;
+                    } else {
+                        container.innerHTML = '<p style="color: #999;">Нет данных о зарплатах</p>';
+                    }
+                } else {
+                    container.innerHTML = '<p style="color: #999;">Нет данных</p>';
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки статистики по кандидатам:', error);
+                container.innerHTML = '<p style="color: #C49A6C;">Ошибка загрузки данных</p>';
+            }
+        }
+
+        // Загрузка вакансий с откликами
+        async function loadVacanciesWithApplications() {
+            const container = document.getElementById('vacanciesWithApplications');
+            try {
+                const response = await fetch(`${API_BASE}/vacancies/with-applications`);
+                const data = await response.json();
+
+                if (data.success) {
+                    // Сохраняем данные для использования в функциях
+                    window.vacanciesData = data;
+                    
+                    // Общая статистика в виде карточек
+                    let html = '<div class="stats-grid" id="vacanciesMainView">';
+                    
+                    html += `
+                        <div class="stat-card" onclick="showAllVacanciesCards()" style="border: 2px solid #D00E46; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                            <div class="stat-value">${data.total_vacancies}</div>
+                            <div class="stat-label">Всего вакансий</div>
+                        </div>
+                        <div class="stat-card" style="border: 2px solid #C49A6C;">
+                            <div class="stat-value">${data.total_applications}</div>
+                            <div class="stat-label">Всего откликов</div>
+                        </div>
+                    `;
+
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p style="color: #999;">Нет данных</p>';
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки вакансий с откликами:', error);
+                container.innerHTML = '<p style="color: #D00E46;">Ошибка загрузки данных</p>';
+            }
+        }
+
+        // Показать отклики на конкретную вакансию
+        async function showApplications(vacancyId, vacancyTitle, count) {
+            if (count === 0) {
+                alert('На эту вакансию пока нет откликов');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/applications?vacancy_id=${vacancyId}`);
+                const data = await response.json();
+
+                if (data.success && data.applications.length > 0) {
+                    // Сохраняем оригинальные данные для фильтрации
+                    const modalId = 'modal_' + vacancyId.replace(/[^a-zA-Z0-9]/g, '_');
+                    window[modalId + '_data'] = data.applications;
+                    
+                    let html = `
+                        <div id="${modalId}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; display: flex; align-items: center; justify-content: center;" onclick="this.remove(); delete window['${modalId}_data'];">
+                            <div style="background: white; padding: 30px; border-radius: 4px; max-width: 1000px; max-height: 80vh; overflow-y: auto; width: 90%;" onclick="event.stopPropagation()">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <h2 style="color: #D00E46; margin: 0;">${vacancyTitle}</h2>
+                                    <button onclick="this.closest('[style*=fixed]').remove(); delete window['${modalId}_data'];" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
+                                </div>
+                                
+                                <!-- Фильтры -->
+                                <div style="background: #f5f5f5; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                                        <div>
+                                            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #4D4D4F;">Зарплата:</label>
+                                            <select id="${modalId}_salary" onchange="filterApplications('${modalId}')" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 2px;">
+                                                <option value="all">Все</option>
+                                                <option value="high">Высокая (> 80 000 ₽)</option>
+                                                <option value="medium">Средняя (60-80 000 ₽)</option>
+                                                <option value="low">Низкая (< 60 000 ₽)</option>
+                                                <option value="not_specified">Не указана</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #4D4D4F;">Совпадение:</label>
+                                            <select id="${modalId}_match" onchange="filterApplications('${modalId}')" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 2px;">
+                                                <option value="all">Все</option>
+                                                <option value="high">Высокое (≥ 80%)</option>
+                                                <option value="medium">Среднее (60-79%)</option>
+                                                <option value="low">Низкое (< 60%)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #4D4D4F;">Сортировка:</label>
+                                            <select id="${modalId}_sort" onchange="filterApplications('${modalId}')" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 2px;">
+                                                <option value="match_desc">По совпадению (↓)</option>
+                                                <option value="match_asc">По совпадению (↑)</option>
+                                                <option value="salary_desc">По зарплате (↓)</option>
+                                                <option value="salary_asc">По зарплате (↑)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p id="${modalId}_count" style="color: #666; margin-bottom: 20px;">Откликов: <strong>${data.applications.length}</strong></p>
+                                <div id="${modalId}_table">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <thead>
+                                            <tr style="background: #f5f5f5; border-bottom: 2px solid #D00E46;">
+                                                <th style="padding: 10px; text-align: left;">Кандидат</th>
+                                                <th style="padding: 10px; text-align: left;">Специализации</th>
+                                                <th style="padding: 10px; text-align: center;">Опыт</th>
+                                                <th style="padding: 10px; text-align: right;">Зарплата</th>
+                                                <th style="padding: 10px; text-align: center;">Совпадение</th>
+                                                <th style="padding: 10px; text-align: center; width: 200px;">Статус</th>
+                                                <th style="padding: 10px; text-align: center;">Действия</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="${modalId}_tbody">
+                    `;
+
+                    data.applications.forEach(app => {
+                        const salary = app.salary_from ? `${app.salary_from.toLocaleString('ru-RU')} ₽` : 'Не указана';
+                        const matchColor = app.match_score >= 80 ? '#4CAF50' : app.match_score >= 60 ? '#C49A6C' : '#999';
+                        const currentStatus = app.status || 'new';
+                        
+                        html += `
+                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                <td style="padding: 10px;">${app.candidate_name}</td>
+                                <td style="padding: 10px; font-size: 13px; color: #666;">${app.specializations.join(', ')}</td>
+                                <td style="padding: 10px; text-align: center;">${app.experience_years} ${app.experience_years === 1 ? 'год' : app.experience_years < 5 ? 'года' : 'лет'}</td>
+                                <td style="padding: 10px; text-align: right; font-weight: 600;">${salary}</td>
+                                <td style="padding: 10px; text-align: center; font-weight: 700; color: ${matchColor};">${app.match_score}%</td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <select class="status-select ${currentStatus}" onchange="updateApplicationStatus('${app.id}', this.value, this)">
+                                        <option value="new" ${currentStatus === 'new' ? 'selected' : ''}>🔵 Новый</option>
+                                        <option value="in_review" ${currentStatus === 'in_review' ? 'selected' : ''}>🟠 В работе</option>
+                                        <option value="accepted" ${currentStatus === 'accepted' ? 'selected' : ''}>🟢 Принят</option>
+                                        <option value="rejected" ${currentStatus === 'rejected' ? 'selected' : ''}>🔴 Отказ</option>
+                                    </select>
+                                </td>
+                                <td style="padding: 10px; text-align: center;">
+                                    <button onclick="downloadResume('${app.resume_filename}')" style="background: #C49A6C; color: white; border: none; padding: 6px 12px; border-radius: 2px; cursor: pointer; font-size: 12px; margin-right: 5px;">
+                                        Скачать
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    html += `
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    document.body.insertAdjacentHTML('beforeend', html);
+                } else {
+                    alert('Не удалось загрузить отклики');
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки откликов:', error);
+                alert('Ошибка загрузки откликов');
+            }
+        }
+
+        // Фильтрация откликов в модальном окне
+        function filterApplications(modalId) {
+            const allApplications = window[modalId + '_data'];
+            if (!allApplications) return;
+
+            // Получаем значения фильтров
+            const salaryFilter = document.getElementById(modalId + '_salary').value;
+            const matchFilter = document.getElementById(modalId + '_match').value;
+            const sortFilter = document.getElementById(modalId + '_sort').value;
+
+            // Применяем фильтры
+            let filtered = allApplications.filter(app => {
+                // Фильтр по зарплате
+                if (salaryFilter !== 'all') {
+                    const salary = app.salary_from || 0;
+                    if (salaryFilter === 'high' && salary <= 80000) return false;
+                    if (salaryFilter === 'medium' && (salary < 60000 || salary > 80000)) return false;
+                    if (salaryFilter === 'low' && salary >= 60000) return false;
+                    if (salaryFilter === 'not_specified' && salary > 0) return false;
+                }
+
+                // Фильтр по совпадению
+                if (matchFilter !== 'all') {
+                    const match = app.match_score;
+                    if (matchFilter === 'high' && match < 80) return false;
+                    if (matchFilter === 'medium' && (match < 60 || match >= 80)) return false;
+                    if (matchFilter === 'low' && match >= 60) return false;
+                }
+
+                return true;
+            });
+
+            // Применяем сортировку
+            filtered.sort((a, b) => {
+                switch (sortFilter) {
+                    case 'match_desc':
+                        return b.match_score - a.match_score;
+                    case 'match_asc':
+                        return a.match_score - b.match_score;
+                    case 'salary_desc':
+                        return (b.salary_from || 0) - (a.salary_from || 0);
+                    case 'salary_asc':
+                        return (a.salary_from || 0) - (b.salary_from || 0);
+                    default:
+                        return 0;
+                }
+            });
+
+            // Обновляем таблицу
+            let html = '';
+            filtered.forEach(app => {
+                const salary = app.salary_from ? `${app.salary_from.toLocaleString('ru-RU')} ₽` : 'Не указана';
+                const matchColor = app.match_score >= 80 ? '#4CAF50' : app.match_score >= 60 ? '#C49A6C' : '#999';
+                html += `
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td style="padding: 10px;">${app.candidate_name}</td>
+                        <td style="padding: 10px; font-size: 13px; color: #666;">${app.specializations.join(', ')}</td>
+                        <td style="padding: 10px; text-align: center;">${app.experience_years} ${app.experience_years === 1 ? 'год' : app.experience_years < 5 ? 'года' : 'лет'}</td>
+                        <td style="padding: 10px; text-align: right; font-weight: 600;">${salary}</td>
+                        <td style="padding: 10px; text-align: center; font-weight: 700; color: ${matchColor};">${app.match_score}%</td>
+                        <td style="padding: 10px; text-align: center;">
+                            <button onclick="downloadResume('${app.resume_filename}')" style="background: #C49A6C; color: white; border: none; padding: 6px 12px; border-radius: 2px; cursor: pointer; font-size: 12px;">
+                                Скачать
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById(modalId + '_tbody').innerHTML = html;
+            document.getElementById(modalId + '_count').innerHTML = `Откликов: <strong>${filtered.length}</strong> из <strong>${allApplications.length}</strong>`;
+        }
+
+        // Флаг для предотвращения автоматической загрузки
+        let skipAutoLoad = false;
+        
+        // Показать отклики на вкладке "Просмотр"
+        async function showApplicationsInBrowse(vacancyId) {
+            try {
+                // Закрываем модальное окно
+                document.querySelectorAll('[style*="position: fixed"]').forEach(el => el.remove());
+                
+                // Устанавливаем флаг, чтобы не загружались все резюме
+                skipAutoLoad = true;
+                
+                // Переключаемся на вкладку "Просмотр"
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab')[2].classList.add('active');
+                document.getElementById('browse').classList.add('active');
+                
+                // Показываем индикатор загрузки
+                const container = document.getElementById('resumesContainer');
+                container.innerHTML = '<div class="section loading"><div class="spinner"></div><p>Загрузка резюме...</p></div>';
+                
+                // Загружаем отклики
+                const response = await fetch(`${API_BASE}/applications?vacancy_id=${vacancyId}`);
+                const data = await response.json();
+                
+                console.log('Applications response:', data);
+                
+                if (!data.success) {
+                    container.innerHTML = `<div class="section"><p style="color: #D00E46;">Ошибка: ${data.error || 'Не удалось загрузить отклики'}</p></div>`;
+                    skipAutoLoad = false;
+                    return;
+                }
+                
+                if (data.applications.length === 0) {
+                    container.innerHTML = '<div class="section"><p style="color: #999;">На эту вакансию пока нет откликов</p></div>';
+                    skipAutoLoad = false;
+                    return;
+                }
+                
+                // Получаем имена файлов откликнувшихся
+                const applicationFilenames = data.applications.map(app => app.resume_filename);
+                
+                // Загружаем все резюме
+                const resumesResponse = await fetch(`${API_BASE}/resumes`);
+                const resumesData = await resumesResponse.json();
+                
+                console.log('Resumes response:', resumesData);
+                
+                if (!resumesData.success) {
+                    container.innerHTML = `<div class="section"><p style="color: #D00E46;">Ошибка: ${resumesData.error || 'Не удалось загрузить резюме'}</p></div>`;
+                    skipAutoLoad = false;
+                    return;
+                }
+                
+                // Фильтруем только резюме откликнувшихся
+                const filteredResumes = resumesData.resumes.filter(r => 
+                    applicationFilenames.includes(r.filename)
+                );
+                
+                console.log('Filtered resumes:', filteredResumes.length);
+                
+                // Добавляем информацию о вакансии к каждому резюме
+                const vacanciesResponse = await fetch(`${API_BASE}/vacancies`);
+                const vacanciesData = await vacanciesResponse.json();
+                const vacancy = vacanciesData.vacancies.find(v => v.id === vacancyId);
+                
+                // Отображаем резюме
+                let html = `<div class="section"><h2>Найдено резюме: ${filteredResumes.length}</h2>`;
+                html += `<p style="color: #666; margin-bottom: 20px;">Отклики на вакансию: <strong style="color: #D00E46;">${vacancy ? vacancy.title : vacancyId}</strong></p>`;
+                
+                filteredResumes.forEach(resume => {
+                    const salaryInfo = resume.salary_from ? 
+                        `<strong>Ожидаемая ЗП:</strong> ${resume.salary_from.toLocaleString('ru-RU')} ₽<br>` : '';
+                    
+                    html += `
+                        <div class="resume-card">
+                            <div class="resume-header">
+                                <div class="resume-filename">${resume.filename}</div>
+                                <button class="btn-secondary" onclick="downloadResume('${resume.filename}')">Скачать</button>
+                            </div>
+                            <div class="resume-details">
+                                <strong>Опыт:</strong> ${resume.experience_years} лет<br>
+                                ${salaryInfo}
+                                <strong>Навыков:</strong> ${resume.all_skills.length}<br>
+                                <strong style="color: #D00E46;">Вакансия:</strong> ${vacancy ? vacancy.title : vacancyId}
+                            </div>
+                            <div class="tags">
+                                ${resume.specializations.map(s => `<span class="tag">${s}</span>`).join('')}
+                                ${resume.all_skills.slice(0, 10).map(s => `<span class="tag">${s}</span>`).join('')}
+                                ${resume.all_skills.length > 10 ? `<span class="tag">+${resume.all_skills.length - 10}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                container.innerHTML = html;
+                
+                // Прокручиваем к началу
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Сбрасываем флаг
+                skipAutoLoad = false;
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                const container = document.getElementById('resumesContainer');
+                container.innerHTML = `<div class="section"><p style="color: #D00E46;">Ошибка загрузки резюме: ${error.message}</p></div>`;
+                // Сбрасываем флаг даже при ошибке
+                skipAutoLoad = false;
+            }
+        }
+
+        // Показать все карточки вакансий
+        function showAllVacanciesCards() {
+            const container = document.getElementById('vacanciesWithApplications');
+            const data = window.vacanciesData;
+            
+            if (!data) {
+                console.error('Нет данных о вакансиях');
+                return;
+            }
+            
+            let html = '<div class="stats-grid" id="vacanciesDetailView">';
+            
+            // Кнопка "Назад"
+            html += `
+                <div class="stat-card" onclick="showVacanciesMainView()" style="border: 2px solid #D00E46; cursor: pointer; background: linear-gradient(135deg, #D00E46 0%, #A00E36 100%); color: white; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="stat-value">←</div>
+                    <div class="stat-label">Назад к статистике</div>
+                </div>
+            `;
+            
+            // Выводим все вакансии по отраслям
+            for (const [industry, industryData] of Object.entries(data.industries)) {
+                industryData.vacancies.forEach(vac => {
+                    html += `
+                        <div class="stat-card" onclick="showApplications('${vac.id}', '${vac.title.replace(/'/g, "\\'")}', ${vac.applications_count})" style="cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='#D00E46'" onmouseout="this.style.borderColor='#e0e0e0'">
+                            <div class="stat-value" style="color: #C49A6C;">${vac.applications_count}</div>
+                            <div class="stat-label" style="font-size: 14px; line-height: 1.4;">${vac.title}</div>
+                            <div style="font-size: 12px; color: #999; margin-top: 5px;">${vac.company}</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // Прокручиваем к началу
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Вернуться к главному виду
+        function showVacanciesMainView() {
+            loadVacanciesWithApplications();
+        }
+
+        // Показать все резюме (отклики)
+        async function showAllApplicationsInBrowse() {
+            try {
+                // Переключаемся на вкладку "Просмотр"
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab')[2].classList.add('active');
+                document.getElementById('browse').classList.add('active');
+                
+                // Загружаем все отклики
+                const response = await fetch(`${API_BASE}/applications`);
+                const data = await response.json();
+                
+                if (data.success && data.applications.length > 0) {
+                    // Получаем имена файлов откликнувшихся
+                    const applicationFilenames = data.applications.map(app => app.resume_filename);
+                    
+                    // Загружаем все резюме
+                    const resumesResponse = await fetch(`${API_BASE}/resumes`);
+                    const resumesData = await resumesResponse.json();
+                    
+                    if (resumesData.success) {
+                        // Фильтруем только резюме откликнувшихся
+                        const filteredResumes = resumesData.resumes.filter(r => 
+                            applicationFilenames.includes(r.filename)
+                        );
+                        
+                        // Загружаем все вакансии
+                        const vacanciesResponse = await fetch(`${API_BASE}/vacancies`);
+                        const vacanciesData = await vacanciesResponse.json();
+                        
+                        // Отображаем резюме
+                        const container = document.getElementById('resumesContainer');
+                        let html = `<div class="section"><h2>Все отклики: ${filteredResumes.length}</h2>`;
+                        html += `<p style="color: #666; margin-bottom: 20px;">Показаны все кандидаты, откликнувшиеся на вакансии</p>`;
+                        
+                        filteredResumes.forEach(resume => {
+                            const salaryInfo = resume.salary_from ? 
+                                `<strong>Ожидаемая ЗП:</strong> ${resume.salary_from.toLocaleString('ru-RU')} ₽<br>` : '';
+                            
+                            // Находим вакансии, на которые откликнулся кандидат
+                            const appliedVacancies = data.applications
+                                .filter(app => app.resume_filename === resume.filename)
+                                .map(app => {
+                                    const vacancy = vacanciesData.vacancies.find(v => v.id === app.vacancy_id);
+                                    return vacancy ? vacancy.title : app.vacancy_id;
+                                });
+                            
+                            html += `
+                                <div class="resume-card">
+                                    <div class="resume-header">
+                                        <div class="resume-filename">${resume.filename}</div>
+                                        <button class="btn-secondary" onclick="downloadResume('${resume.filename}')">Скачать</button>
+                                    </div>
+                                    <div class="resume-details">
+                                        <strong>Опыт:</strong> ${resume.experience_years} лет<br>
+                                        ${salaryInfo}
+                                        <strong>Навыков:</strong> ${resume.all_skills.length}<br>
+                                        <strong style="color: #D00E46;">Вакансии:</strong> ${appliedVacancies.join(', ')}
+                                    </div>
+                                    <div class="tags">
+                                        ${resume.specializations.map(s => `<span class="tag">${s}</span>`).join('')}
+                                    </div>
+                                    <div class="tags">
+                                        ${resume.all_skills.slice(0, 10).map(s => `<span class="tag">${s}</span>`).join('')}
+                                        ${resume.all_skills.length > 10 ? `<span class="tag">+${resume.all_skills.length - 10}</span>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div>';
+                        container.innerHTML = html;
+                        
+                        // Прокручиваем к началу
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Ошибка загрузки резюме');
+            }
+        }
+
+        // Текущая выбранная площадка
+        let currentLocation = 'all';
+
+        // Фильтрация по площадкам
+        async function filterByLocation(location) {
+            currentLocation = location;
+            
+            // Обновляем активную вкладку
+            document.querySelectorAll('.location-tab').forEach(tab => {
+                if (tab.dataset.location === location) {
+                    tab.style.color = '#D00E46';
+                    tab.style.fontWeight = '700';
+                    tab.style.borderBottom = '3px solid #D00E46';
+                    tab.classList.add('active');
+                } else {
+                    tab.style.color = '#999';
+                    tab.style.fontWeight = '400';
+                    tab.style.borderBottom = '3px solid transparent';
+                    tab.classList.remove('active');
+                }
+            });
+
+            // Загружаем статистику по площадке
+            await loadLocationStats(location);
+        }
+
+        // Загрузка статистики по площадке
+        async function loadLocationStats(location) {
+            const container = document.getElementById('locationStats');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div><p>Загрузка...</p></div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/vacancies`);
+                const data = await response.json();
+
+                if (data.success && data.vacancies) {
+                    // Фильтруем по площадке
+                    let filteredVacancies = data.vacancies;
+                    if (location !== 'all') {
+                        filteredVacancies = data.vacancies.filter(v => v.location === location);
+                    }
+
+                    // Собираем статистику
+                    const companies = new Set();
+                    const specializations = new Set();
+                    let internships = 0;
+
+                    filteredVacancies.forEach(vac => {
+                        companies.add(vac.company);
+                        specializations.add(vac.specialization);
+                        if (vac.is_internship) internships++;
+                    });
+
+                    // Группируем по специальностям
+                    const specStats = {};
+                    filteredVacancies.forEach(vac => {
+                        const spec = vac.specialization;
+                        if (!specStats[spec]) {
+                            specStats[spec] = 0;
+                        }
+                        specStats[spec]++;
+                    });
+
+                    // Сортируем по количеству
+                    const sortedSpecs = Object.entries(specStats)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 10);
+
+                    // Формируем HTML
+                    let html = '<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">';
+                    
+                    // Левая колонка - общая статистика
+                    html += '<div>';
+                    html += '<h3 style="margin-bottom: 20px; color: #4D4D4F;">Статистика' + (location !== 'all' ? ` - ${location}` : '') + '</h3>';
+                    html += '<div style="display: flex; flex-direction: column; gap: 15px;">';
+                    
+                    html += `
+                        <div class="stat-card" style="padding: 15px; text-align: center; background: #f9f9f9;">
+                            <div class="stat-value" style="font-size: 2.5em; color: #D00E46; margin-bottom: 5px;">${filteredVacancies.length}</div>
+                            <div class="stat-label" style="color: #4D4D4F; font-size: 0.85em;">Вакансий</div>
+                        </div>
+                        <div class="stat-card" style="padding: 15px; text-align: center; background: #f9f9f9;">
+                            <div class="stat-value" style="font-size: 2.5em; color: #C49A6C; margin-bottom: 5px;">${companies.size}</div>
+                            <div class="stat-label" style="color: #4D4D4F; font-size: 0.85em;">Компаний</div>
+                        </div>
+                        <div class="stat-card" style="padding: 15px; text-align: center; background: #f9f9f9;">
+                            <div class="stat-value" style="font-size: 2.5em; color: #4D4D4F; margin-bottom: 5px;">${specializations.size}</div>
+                            <div class="stat-label" style="color: #4D4D4F; font-size: 0.85em;">Специальностей</div>
+                        </div>
+                        <div class="stat-card" style="padding: 15px; text-align: center; background: #f9f9f9;">
+                            <div class="stat-value" style="font-size: 2.5em; color: #4D4D4F; margin-bottom: 5px;">${internships}</div>
+                            <div class="stat-label" style="color: #4D4D4F; font-size: 0.85em;">Стажировок</div>
+                        </div>
+                    `;
+                    
+                    html += '</div></div>';
+
+                    // Правая колонка - топ специальностей
+                    html += '<div>';
+                    html += '<h3 style="margin-bottom: 20px; color: #4D4D4F;">Топ специальностей</h3>';
+                    html += '<table style="width: 100%; border-collapse: collapse;">';
+                    html += '<tr style="background: #f5f5f5; font-weight: 700;"><th style="padding: 10px; text-align: left;">Специальность</th><th style="padding: 10px; text-align: center;">Вакансий</th></tr>';
+                    
+                    sortedSpecs.forEach(([spec, count]) => {
+                        html += `
+                            <tr style="border-bottom: 1px solid #e0e0e0; cursor: pointer; transition: background 0.2s;" 
+                                onmouseover="this.style.background='#f5f5f5'" 
+                                onmouseout="this.style.background='white'"
+                                onclick="filterBySpecialization('${spec.replace(/'/g, "\\'")}')">
+                                <td style="padding: 10px;">${spec}</td>
+                                <td style="padding: 10px; text-align: center; font-weight: 700; color: #D00E46;">${count}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    html += '</table></div>';
+                    html += '</div>';
+
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="error">Нет данных о вакансиях</div>';
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="error">Ошибка загрузки: ${error.message}</div>`;
+            }
+        }
+
+        // Общая функция загрузки всей аналитики
+        function loadSalaryStats() {
+            filterByLocation('all'); // Загружаем статистику по всем площадкам
+            loadVacancySalaryStats();
+            loadCandidateSalaryStats();
+            loadVacanciesWithApplications();
+        }
+
+        // Скоринг резюме
+        async function scoreResumes() {
+            const vacancyText = document.getElementById('vacancyText').value;
+            const resultsContainer = document.getElementById('scoringResults');
+
+            if (!vacancyText.trim()) {
+                alert('Введите текст вакансии');
+                return;
+            }
+
+            resultsContainer.innerHTML = '<div class="section loading"><div class="spinner"></div><p>Анализ резюме...</p></div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/score`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ vacancy_text: vacancyText })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    displayScoringResults(data);
+                } else {
+                    resultsContainer.innerHTML = `<div class="section"><div class="error">${data.error}</div></div>`;
+                }
+            } catch (error) {
+                resultsContainer.innerHTML = `<div class="section"><div class="error">${error.message}</div></div>`;
+            }
+        }
+
+        // Отображение результатов скоринга
+        function displayScoringResults(data) {
+            const container = document.getElementById('scoringResults');
+            const stats = data.category_statistics;
+
+            let html = `
+                <div class="section">
+                    <h2>Статистика по категориям</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: #38ef7d">${stats.excellent}</div>
+                            <div class="stat-label">Отличные (80%+)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: #19547b">${stats.good}</div>
+                            <div class="stat-label">Хорошие (60-80%)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: #f5576c">${stats.average}</div>
+                            <div class="stat-label">Средние (40-60%)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: #b31217">${stats.poor}</div>
+                            <div class="stat-label">Слабые (<40%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🏆 Топ кандидаты</h2>
+            `;
+
+            data.ranked_resumes.slice(0, 20).forEach((resume, idx) => {
+                const scoreClass = `score-${resume.category}`;
+                html += `
+                    <div class="resume-card">
+                        <div class="resume-header">
+                            <div>
+                                <span style="color: #999; font-size: 1.2em; margin-right: 10px;">#${idx + 1}</span>
+                                <span class="resume-filename">${resume.resume_filename}</span>
+                            </div>
+                            <span class="score-badge ${scoreClass}">${resume.total_score}%</span>
+                        </div>
+                        <div class="explanation">${resume.explanation}</div>
+                        <div class="resume-details">
+                            <strong>Детали скоринга:</strong><br>
+                            Навыки: ${resume.components.skills_score}% | 
+                            Текстовое сходство: ${resume.components.text_similarity}% | 
+                            Опыт: ${resume.components.experience_score}%
+                        </div>
+                        <div class="tags">
+                            ${resume.resume_data.specializations.map(s => `<span class="tag">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Загрузка резюме
+        async function loadResumes() {
+            const container = document.getElementById('resumesList');
+            container.innerHTML = '<div class="section loading"><div class="spinner"></div><p>Загрузка...</p></div>';
+
+            const spec = document.getElementById('filterSpec').value;
+            const skill = document.getElementById('filterSkill').value;
+            const exp = document.getElementById('filterExp').value;
+            const salary = document.getElementById('filterSalary').value;
+
+            let url = `${API_BASE}/resumes?`;
+            if (spec) url += `specialization=${spec}&`;
+            if (skill) url += `skill=${skill}&`;
+            if (exp) url += `min_experience=${exp}&`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.success) {
+                    // Фильтруем по зарплате на клиенте
+                    let resumes = data.resumes;
+                    if (salary && salary > 0) {
+                        resumes = resumes.filter(r => r.salary_from && r.salary_from >= parseInt(salary));
+                    }
+
+                    let html = `<div class="section"><h2>Найдено резюме: ${resumes.length}</h2>`;
+
+                    resumes.forEach(resume => {
+                        const salaryInfo = resume.salary_from ? 
+                            `<strong>Ожидаемая ЗП:</strong> ${resume.salary_from.toLocaleString('ru-RU')} ₽<br>` : '';
+                        
+                        // Информация о вакансиях, на которые откликнулся кандидат
+                        let vacanciesInfo = '';
+                        if (resume.applied_vacancies && resume.applied_vacancies.length > 0) {
+                            vacanciesInfo = '<strong style="color: #D00E46;">Отклики на вакансии:</strong><br>';
+                            resume.applied_vacancies.forEach(vac => {
+                                vacanciesInfo += `<span style="font-size: 13px; color: #666;">• ${vac.title} (${vac.company}) - совпадение ${vac.match_score}%</span><br>`;
+                            });
+                        }
+                        
+                        html += `
+                            <div class="resume-card">
+                                <div class="resume-header">
+                                    <div class="resume-filename">${resume.filename}</div>
+                                    <button class="btn-secondary" onclick="downloadResume('${resume.filename}')">Скачать</button>
+                                </div>
+                                <div class="resume-details">
+                                    <strong>Опыт:</strong> ${resume.experience_years} лет<br>
+                                    ${salaryInfo}
+                                    <strong>Навыков:</strong> ${resume.all_skills.length}<br>
+                                    ${vacanciesInfo}
+                                </div>
+                                <div class="tags">
+                                    ${resume.specializations.map(s => `<span class="tag">${s}</span>`).join('')}
+                                </div>
+                                <div class="tags">
+                                    ${resume.all_skills.slice(0, 10).map(s => `<span class="tag">${s}</span>`).join('')}
+                                    ${resume.all_skills.length > 10 ? `<span class="tag">+${resume.all_skills.length - 10}</span>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<div class="section"><div class="error">${data.error}</div></div>`;
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="section"><div class="error">${error.message}</div></div>`;
+            }
+        }
+
+        // Скачивание резюме
+        function downloadResume(filename) {
+            window.location.href = `${API_BASE}/resume/download/${filename}`;
+        }
+
+        // Обновление статуса отклика
+        async function updateApplicationStatus(applicationId, newStatus, selectElement) {
+            try {
+                const response = await fetch(`${API_BASE}/applications/${applicationId}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Обновляем цвет выпадающего списка
+                    if (selectElement) {
+                        selectElement.className = `status-select ${newStatus}`;
+                    }
+                    
+                    // Показываем сообщение
+                    console.log(`Статус отклика ${applicationId} изменен на ${newStatus}`);
+                } else {
+                    alert('Ошибка обновления статуса: ' + data.error);
+                    // Вернуть старое значение в select
+                    if (selectElement && selectElement.dataset.oldValue) {
+                        selectElement.value = selectElement.dataset.oldValue;
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Ошибка обновления статуса');
+                // Вернуть старое значение в select
+                if (selectElement && selectElement.dataset.oldValue) {
+                    selectElement.value = selectElement.dataset.oldValue;
+                }
+            }
+        }
+
+        // Экспорт данных
+        function exportData(format) {
+            window.location.href = `${API_BASE}/export/${format}?type=parsed`;
+        }
+
+        // Загрузка общего банка резюме
+        async function loadGeneralPool() {
+            const source = document.getElementById('poolFilterSource')?.value || '';
+            const spec = document.getElementById('poolFilterSpec')?.value || '';
+            
+            let url = `${API_BASE}/general-pool?`;
+            if (source) url += `source=${encodeURIComponent(source)}&`;
+            if (spec) url += `specialization=${encodeURIComponent(spec)}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const pool = data.pool || [];
+                    const container = document.getElementById('poolList');
+                    
+                    if (pool.length === 0) {
+                        container.innerHTML = '<p style="color: #999; padding: 20px;">Нет резюме в общем банке</p>';
+                        return;
+                    }
+
+                    let html = '<table style="width: 100%; border-collapse: collapse;">';
+                    html += '<thead><tr style="background: #f5f5f5; border-bottom: 2px solid #D00E46;">';
+                    html += '<th style="padding: 12px; text-align: left;">Кандидат</th>';
+                    html += '<th style="padding: 12px; text-align: left;">Специализации</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Опыт</th>';
+                    html += '<th style="padding: 12px; text-align: right;">Зарплата</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Источник</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Дата</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Действия</th>';
+                    html += '</tr></thead><tbody>';
+
+                    pool.forEach(resume => {
+                        const source = resume.source === 'email' ? 'Email' : 'Отказ';
+                        const sourceColor = resume.source === 'email' ? '#2196F3' : '#F44336';
+                        const date = new Date(resume.received_at || resume.rejection_date).toLocaleDateString('ru-RU');
+                        const salary = resume.salary_from ? `${resume.salary_from.toLocaleString('ru-RU')} ₽` : '—';
+                        const name = resume.filename.split('_').slice(1, -1).join(' ');
+                        const specs = (resume.specializations || []).join(', ');
+                        
+                        html += '<tr style="border-bottom: 1px solid #e0e0e0;">';
+                        html += `<td style="padding: 12px;"><strong>${name}</strong></td>`;
+                        html += `<td style="padding: 12px; color: #666; font-size: 0.9em;">${specs}</td>`;
+                        html += `<td style="padding: 12px; text-align: center;">${resume.experience_years || 0} лет</td>`;
+                        html += `<td style="padding: 12px; text-align: right; font-weight: 600;">${salary}</td>`;
+                        html += `<td style="padding: 12px; text-align: center;"><span style="background: ${sourceColor}; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.85em;">${source}</span></td>`;
+                        html += `<td style="padding: 12px; text-align: center; color: #999; font-size: 0.9em;">${date}</td>`;
+                        html += `<td style="padding: 12px; text-align: center;"><a href="/api/resume/download/${resume.filename}" style="background: #C49A6C; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 0.85em;" target="_blank">Скачать</a></td>`;
+                        html += '</tr>';
+                    });
+
+                    html += '</tbody></table>';
+                    html += `<p style="margin-top: 20px; color: #666;">Всего резюме в банке: <strong>${pool.length}</strong> (из ${data.total_all})</p>`;
+                    container.innerHTML = html;
+                } else {
+                    document.getElementById('poolList').innerHTML = '<p style="color: red;">Ошибка загрузки</p>';
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('poolList').innerHTML = '<p style="color: red;">Ошибка соединения</p>';
+            }
+        }
+
+        // Загрузка статистики по компаниям
+        async function loadCompaniesStats() {
+            try {
+                const response = await fetch(`${API_BASE}/applications/stats/all`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const companies = data.companies || [];
+                    const totalStats = data.total_stats || {};
+                    const container = document.getElementById('companiesStats');
+                    
+                    if (companies.length === 0) {
+                        container.innerHTML = '<p style="color: #999; padding: 20px;">Нет данных</p>';
+                        return;
+                    }
+
+                    let html = '<div style="background: #f8f8f8; padding: 20px; border-radius: 4px; margin-bottom: 20px;">';
+                    html += '<h3 style="margin-bottom: 15px; color: #D00E46;">Общая статистика</h3>';
+                    html += '<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px;">';
+                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #D00E46;">${totalStats.total || 0}</div><div style="color: #666; font-size: 0.9em;">Всего откликов</div></div>`;
+                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #2196F3;">${totalStats.new || 0}</div><div style="color: #666; font-size: 0.9em;">Новых</div></div>`;
+                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #FF9800;">${totalStats.in_review || 0}</div><div style="color: #666; font-size: 0.9em;">В работе</div></div>`;
+                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #4CAF50;">${totalStats.accepted || 0}</div><div style="color: #666; font-size: 0.9em;">Принято</div></div>`;
+                    html += `<div style="text-align: center;"><div style="font-size: 2em; font-weight: 700; color: #F44336;">${totalStats.rejected || 0}</div><div style="color: #666; font-size: 0.9em;">Отказов</div></div>`;
+                    html += '</div></div>';
+
+                    html += '<table style="width: 100%; border-collapse: collapse;">';
+                    html += '<thead><tr style="background: #f5f5f5; border-bottom: 2px solid #D00E46;">';
+                    html += '<th style="padding: 12px; text-align: left;">Компания</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Всего</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Новых</th>';
+                    html += '<th style="padding: 12px; text-align: center;">В работе</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Принято</th>';
+                    html += '<th style="padding: 12px; text-align: center;">Отказов</th>';
+                    html += '</tr></thead><tbody>';
+
+                    companies.forEach(company => {
+                        html += '<tr style="border-bottom: 1px solid #e0e0e0;">';
+                        html += `<td style="padding: 12px;"><strong>${company.company}</strong></td>`;
+                        html += `<td style="padding: 12px; text-align: center; font-weight: 600;">${company.total}</td>`;
+                        html += `<td style="padding: 12px; text-align: center; color: #2196F3;">${company.new}</td>`;
+                        html += `<td style="padding: 12px; text-align: center; color: #FF9800;">${company.in_review}</td>`;
+                        html += `<td style="padding: 12px; text-align: center; color: #4CAF50;">${company.accepted}</td>`;
+                        html += `<td style="padding: 12px; text-align: center; color: #F44336;">${company.rejected}</td>`;
+                        html += '</tr>';
+                    });
+
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                } else {
+                    document.getElementById('companiesStats').innerHTML = '<p style="color: red;">Ошибка загрузки</p>';
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('companiesStats').innerHTML = '<p style="color: red;">Ошибка соединения</p>';
+            }
+        }
+
+        // Автозагрузка при старте
+        window.addEventListener('load', () => {
+            loadStatistics();
+            loadSalaryStats();
+            loadSkillsCloud();
+        });
+    </script>
+</body>
+</html>

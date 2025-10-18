@@ -1,0 +1,63 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Virtual environments
+.venv
+venv
+ENV
+env
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backups
+*.backup
+*_backup.json
+*.bak
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation (не нужны в образе)
+README.md
+DOCKER.md
+STATUS_MANAGEMENT_GUIDE.md
+DEPLOY.md
+COMPANY_ACCESS.md
+TWO_MODES.md
+
+# Scripts
+copy_files.ps1
+*.ps1
+add_ids_to_applications.py
+create_general_pool.py
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Test files
+test_*.py
+*_test.py

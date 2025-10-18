@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - FLASK_APP=app.py
+      - PYTHONUNBUFFERED=1
+      - HOST=0.0.0.0
+      - PORT=5000
+    restart: unless-stopped
+    container_name: technopolis-hr-system
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:5000/api/statistics')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

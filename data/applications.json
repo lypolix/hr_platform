@@ -1,0 +1,2201 @@
+[
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "010_Кандидат_10_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Токарь"
+    ],
+    "experience_years": 0,
+    "salary_from": 66000,
+    "match_score": 94,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_001"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "024_Кандидат_24_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 93,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_002"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "006_Петров_Андрей_Сергеевич_Мастер_участка.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Мастер участка"
+    ],
+    "experience_years": 12,
+    "salary_from": null,
+    "match_score": 87,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_003"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "017_Петров_Алексей_Владимирович_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 88,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_004"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "014_Кандидат_14_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации",
+      "Начальник цеха"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 61,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_005"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "028_Кандидат_28_Наладчик_станков_с_ЧПУ.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 94,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_006"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "017_Кандидат_17_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 73,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_007"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "002_Кандидат_2_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Токарь"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 82,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_008"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "004_Кандидат_4_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Токарь"
+    ],
+    "experience_years": 1,
+    "salary_from": 82000,
+    "match_score": 83,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_009"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "014_Кандидат_14_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Инженер-конструктор"
+    ],
+    "experience_years": 0,
+    "salary_from": 79000,
+    "match_score": 94,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_010"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "003_Кандидат_3_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-конструктор",
+      "Инженер-технолог"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 61,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_011"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "028_Кандидат_28_Инженер_по_охране_труда.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда"
+    ],
+    "experience_years": 2,
+    "salary_from": 82000,
+    "match_score": 91,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_012"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "023_Кандидат_23_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 85,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_013"
+  },
+  {
+    "vacancy_id": "vac_001",
+    "resume_filename": "023_Кузнецов_Андрей_Сергеевич_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 70,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_014"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "005_Кандидат_5_Логист.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист"
+    ],
+    "experience_years": 0,
+    "salary_from": 63000,
+    "match_score": 75,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_015"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "005_Иванов_Алексей_Петрович_Логист.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист"
+    ],
+    "experience_years": 9,
+    "salary_from": 87000,
+    "match_score": 80,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T21:17:10.653437",
+    "id": "app_016"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "013_Петров_Алексей_Владимирович_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Логист"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 61,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T21:17:11.949910",
+    "id": "app_017"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "018_Кандидат_18_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 79000,
+    "match_score": 82,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T21:17:06.552391",
+    "id": "app_018"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "004_Кандидат_4_Водитель_погрузчика.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 87000,
+    "match_score": 65,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_019"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "009_Кузнецов_Андрей_Сергеевич_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Кладовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 84,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T21:10:39.785122",
+    "id": "app_020"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "027_Петров_Алексей_Владимирович_Кладовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Кладовщик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": 109000,
+    "match_score": 73,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T21:08:23.723849",
+    "id": "app_021"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "012_Иванов_Сергей_Петрович_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 83,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T21:17:04.758227",
+    "id": "app_022"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "025_Петров_Алексей_Владимирович_Слесарь-ремонтник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда",
+      "Контролер ОТК",
+      "Электромонтажник"
+    ],
+    "experience_years": 10,
+    "salary_from": 90000,
+    "match_score": 81,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T21:11:01.727879",
+    "id": "app_023"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "023_Кандидат_23_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 80,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T21:17:00.289486",
+    "id": "app_024"
+  },
+  {
+    "vacancy_id": "vac_002",
+    "resume_filename": "012_Кандидат_12_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 69,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_025"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "006_Кандидат_6_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Инженер-конструктор"
+    ],
+    "experience_years": 1,
+    "salary_from": 75000,
+    "match_score": 81,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_026"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "019_Кандидат_19_Инженер-технолог.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер-конструктор",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 74,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_027"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "011_Кузнецов_Андрей_Сергеевич_Инженер_по_качеству.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер-конструктор",
+      "Инженер по качеству",
+      "Инженер по охране труда",
+      "Инженер-технолог"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 89,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_028"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "014_Кандидат_14_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Инженер-конструктор"
+    ],
+    "experience_years": 0,
+    "salary_from": 79000,
+    "match_score": 81,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_029"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "003_Волков_Андрей_Сергеевич_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер-конструктор",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Начальник цеха"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 83,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_030"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "019_Кандидат_19_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Инженер-конструктор"
+    ],
+    "experience_years": 1,
+    "salary_from": 68000,
+    "match_score": 81,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_031"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "019_Петров_Алексей_Владимирович_Инженер-технолог.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер-конструктор",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 89,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_032"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "014_Кандидат_14_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации",
+      "Начальник цеха"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 90,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_033"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "010_Петров_Алексей_Владимирович_Инженер_по_охране_труда.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Инженер по качеству"
+    ],
+    "experience_years": 7,
+    "salary_from": null,
+    "match_score": 74,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_034"
+  },
+  {
+    "vacancy_id": "vac_003",
+    "resume_filename": "009_Кандидат_9_Электромонтажник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 88000,
+    "match_score": 68,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_035"
+  },
+  {
+    "vacancy_id": "vac_004",
+    "resume_filename": "020_Петров_Алексей_Владимирович_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Мастер участка",
+      "Начальник цеха"
+    ],
+    "experience_years": 15,
+    "salary_from": null,
+    "match_score": 65,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_036"
+  },
+  {
+    "vacancy_id": "vac_004",
+    "resume_filename": "006_Кандидат_6_Мастер_участка.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Мастер участка"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 65,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_037"
+  },
+  {
+    "vacancy_id": "vac_004",
+    "resume_filename": "014_Петров_Андрей_Сергеевич_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации",
+      "Мастер участка",
+      "Начальник цеха"
+    ],
+    "experience_years": 15,
+    "salary_from": null,
+    "match_score": 60,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_038"
+  },
+  {
+    "vacancy_id": "vac_004",
+    "resume_filename": "024_Кандидат_24_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 87,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_039"
+  },
+  {
+    "vacancy_id": "vac_004",
+    "resume_filename": "002_Петров_Алексей_Владимирович_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Токарь"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 73,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_040"
+  },
+  {
+    "vacancy_id": "vac_005",
+    "resume_filename": "015_Кандидат_15_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 75,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_041"
+  },
+  {
+    "vacancy_id": "vac_005",
+    "resume_filename": "011_Кандидат_11_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 1,
+    "salary_from": 91000,
+    "match_score": 75,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_042"
+  },
+  {
+    "vacancy_id": "vac_005",
+    "resume_filename": "017_Кандидат_17_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 0,
+    "salary_from": 67000,
+    "match_score": 80,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_043"
+  },
+  {
+    "vacancy_id": "vac_005",
+    "resume_filename": "008_Иванов_Сергей_Петрович_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 83,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_044"
+  },
+  {
+    "vacancy_id": "vac_005",
+    "resume_filename": "006_Петров_Андрей_Сергеевич_Мастер_участка.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Мастер участка"
+    ],
+    "experience_years": 12,
+    "salary_from": null,
+    "match_score": 65,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_045"
+  },
+  {
+    "vacancy_id": "vac_005",
+    "resume_filename": "016_Кандидат_16_Инженер-технолог.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Инженер-технолог"
+    ],
+    "experience_years": 0,
+    "salary_from": 86000,
+    "match_score": 95,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_046"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "024_Кузнецов_Андрей_Сергеевич_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 76,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_047"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "014_Петров_Андрей_Сергеевич_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации",
+      "Мастер участка",
+      "Начальник цеха"
+    ],
+    "experience_years": 15,
+    "salary_from": null,
+    "match_score": 68,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_048"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "014_Кандидат_14_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации",
+      "Начальник цеха"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 88,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_049"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "012_Иванов_Сергей_Петрович_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 65,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_050"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "012_Кандидат_12_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 60,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_051"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "010_Кандидат_10_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Токарь"
+    ],
+    "experience_years": 0,
+    "salary_from": 66000,
+    "match_score": 86,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_052"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "027_Петров_Алексей_Владимирович_Кладовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Кладовщик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": 109000,
+    "match_score": 81,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_053"
+  },
+  {
+    "vacancy_id": "vac_006",
+    "resume_filename": "010_Кандидат_10_Инженер_по_охране_труда.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 78,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_054"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "026_Кандидат_26_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Фрезеровщик"
+    ],
+    "experience_years": 0,
+    "salary_from": 89000,
+    "match_score": 65,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_055"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "014_Кандидат_14_Начальник_цеха.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации",
+      "Начальник цеха"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 78,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_056"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "028_Кузнецов_Андрей_Сергеевич_Наладчик_станков_с_ЧПУ.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 93,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_057"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "012_Иванов_Сергей_Петрович_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 80,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_058"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "019_Петров_Алексей_Владимирович_Инженер-технолог.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер-конструктор",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 91,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_059"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "017_Кандидат_17_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 60,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_060"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "023_Кандидат_23_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 89,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_061"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "003_Кандидат_3_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-конструктор",
+      "Инженер-технолог"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 71,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_062"
+  },
+  {
+    "vacancy_id": "vac_007",
+    "resume_filename": "022_Кандидат_22_Инженер_по_охране_труда.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-технолог"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 91,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_063"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "010_Кандидат_10_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Токарь"
+    ],
+    "experience_years": 0,
+    "salary_from": 66000,
+    "match_score": 61,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_064"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "011_Кандидат_11_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 1,
+    "salary_from": 91000,
+    "match_score": 63,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_065"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "021_Кандидат_21_Электромонтажник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 86000,
+    "match_score": 92,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_066"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "008_Иванов_Сергей_Петрович_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 64,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_067"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "021_Кузнецов_Андрей_Сергеевич_Электромонтажник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Электромонтажник"
+    ],
+    "experience_years": 9,
+    "salary_from": 94000,
+    "match_score": 87,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_068"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "003_Кандидат_3_Инженер-конструктор.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-конструктор",
+      "Инженер-технолог"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 68,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_069"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "004_Иванов_Сергей_Петрович_Водитель_погрузчика.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": 112000,
+    "match_score": 78,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_070"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "028_Кандидат_28_Наладчик_станков_с_ЧПУ.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 62,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_071"
+  },
+  {
+    "vacancy_id": "vac_008",
+    "resume_filename": "005_Кандидат_5_Слесарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда"
+    ],
+    "experience_years": 0,
+    "salary_from": 57000,
+    "match_score": 86,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_072"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "005_Кандидат_5_Слесарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда"
+    ],
+    "experience_years": 0,
+    "salary_from": 57000,
+    "match_score": 71,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_073"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "025_Кандидат_25_Слесарь-ремонтник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда",
+      "Контролер ОТК",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 46000,
+    "match_score": 66,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_074"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "016_Петров_Алексей_Владимирович_Слесарь-ремонтник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда",
+      "Контролер ОТК",
+      "Электромонтажник"
+    ],
+    "experience_years": 10,
+    "salary_from": 83000,
+    "match_score": 63,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_075"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "024_Кандидат_24_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 61,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_076"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "016_Кандидат_16_Инженер-технолог.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Инженер-технолог"
+    ],
+    "experience_years": 0,
+    "salary_from": 86000,
+    "match_score": 84,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_077"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "012_Иванов_Сергей_Петрович_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 95,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_078"
+  },
+  {
+    "vacancy_id": "vac_009",
+    "resume_filename": "012_Кандидат_12_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 91,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_079"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "007_Кандидат_7_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 87000,
+    "match_score": 95,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_080"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "007_Петров_Алексей_Владимирович_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Кладовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 73,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_081"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "027_Кандидат_27_Кладовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Кладовщик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 67000,
+    "match_score": 66,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_082"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "004_Кандидат_4_Водитель_погрузчика.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 87000,
+    "match_score": 92,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_083"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "027_Петров_Алексей_Владимирович_Кладовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Кладовщик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": 109000,
+    "match_score": 90,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_084"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "018_Кандидат_18_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 79000,
+    "match_score": 79,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_085"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "009_Кузнецов_Андрей_Сергеевич_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Кладовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 88,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_086"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "023_Кузнецов_Андрей_Сергеевич_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 67,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_087"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "018_Кузнецов_Дмитрий_Сергеевич_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 73,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_088"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "023_Кандидат_23_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 64,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_089"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "026_Кандидат_26_Логист.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист"
+    ],
+    "experience_years": 0,
+    "salary_from": 61000,
+    "match_score": 82,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_090"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "005_Иванов_Алексей_Петрович_Логист.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист"
+    ],
+    "experience_years": 9,
+    "salary_from": 87000,
+    "match_score": 90,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_091"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "026_Кандидат_26_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Фрезеровщик"
+    ],
+    "experience_years": 0,
+    "salary_from": 89000,
+    "match_score": 67,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_092"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "013_Кандидат_13_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик"
+    ],
+    "experience_years": 0,
+    "salary_from": 74000,
+    "match_score": 87,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_093"
+  },
+  {
+    "vacancy_id": "vac_010",
+    "resume_filename": "012_Иванов_Сергей_Петрович_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Фрезеровщик",
+      "Оператор ЧПУ",
+      "Инженер по автоматизации"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 77,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_094"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "013_Кандидат_13_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик"
+    ],
+    "experience_years": 0,
+    "salary_from": 74000,
+    "match_score": 86,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_095"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "023_Кузнецов_Андрей_Сергеевич_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 68,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_096"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "018_Кузнецов_Дмитрий_Сергеевич_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 80,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_097"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "004_Иванов_Сергей_Петрович_Водитель_погрузчика.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": 112000,
+    "match_score": 83,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_098"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "009_Кузнецов_Андрей_Сергеевич_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Кладовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 69,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_099"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "004_Кандидат_4_Водитель_погрузчика.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 87000,
+    "match_score": 60,
+    "status": "accepted",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_100"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "009_Кандидат_9_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 85000,
+    "match_score": 84,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_101"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "007_Кандидат_7_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист",
+      "Грузчик",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": 87000,
+    "match_score": 74,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_102"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "013_Петров_Алексей_Владимирович_Грузчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Логист"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 90,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_103"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "005_Кандидат_5_Логист.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист"
+    ],
+    "experience_years": 0,
+    "salary_from": 63000,
+    "match_score": 71,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_104"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "017_Кандидат_17_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 0,
+    "salary_from": 67000,
+    "match_score": 62,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_105"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "017_Кандидат_17_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 86,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_106"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "005_Иванов_Алексей_Петрович_Логист.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Логист"
+    ],
+    "experience_years": 9,
+    "salary_from": 87000,
+    "match_score": 95,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_107"
+  },
+  {
+    "vacancy_id": "vac_011",
+    "resume_filename": "008_Кандидат_8_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Сварщик"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 82,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_108"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "009_Кандидат_9_Электромонтажник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 88000,
+    "match_score": 61,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_109"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "016_Кандидат_16_Слесарь-ремонтник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда",
+      "Контролер ОТК",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 58000,
+    "match_score": 64,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_110"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "015_Петров_Алексей_Владимирович_Сварщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Электромонтажник",
+      "Сварщик"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 71,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_111"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "021_Кандидат_21_Электромонтажник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 86000,
+    "match_score": 95,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_112"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "016_Петров_Алексей_Владимирович_Слесарь-ремонтник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда",
+      "Контролер ОТК",
+      "Электромонтажник"
+    ],
+    "experience_years": 10,
+    "salary_from": 83000,
+    "match_score": 92,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_113"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "025_Петров_Алексей_Владимирович_Слесарь-ремонтник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда",
+      "Контролер ОТК",
+      "Электромонтажник"
+    ],
+    "experience_years": 10,
+    "salary_from": 90000,
+    "match_score": 92,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_114"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "023_Кандидат_23_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 83,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_115"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "023_Кузнецов_Андрей_Сергеевич_Комплектовщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Комплектовщик",
+      "Грузчик",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Логист",
+      "Водитель погрузчика"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 91,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_116"
+  },
+  {
+    "vacancy_id": "vac_012",
+    "resume_filename": "026_Кандидат_26_Фрезеровщик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Фрезеровщик"
+    ],
+    "experience_years": 0,
+    "salary_from": 89000,
+    "match_score": 94,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_117"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "011_Кузнецов_Андрей_Сергеевич_Инженер_по_качеству.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер-конструктор",
+      "Инженер по качеству",
+      "Инженер по охране труда",
+      "Инженер-технолог"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 86,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_118"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "011_Кандидат_11_Инженер_по_качеству.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер по качеству"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 71,
+    "status": "new",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_119"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "030_Петров_Алексей_Владимирович_Инженер_по_качеству.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер по качеству"
+    ],
+    "experience_years": 9,
+    "salary_from": null,
+    "match_score": 78,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_120"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "010_Петров_Алексей_Владимирович_Инженер_по_охране_труда.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Инженер по качеству"
+    ],
+    "experience_years": 7,
+    "salary_from": null,
+    "match_score": 88,
+    "status": "in_review",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_121"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "030_Кандидат_30_Инженер_по_качеству.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер по качеству"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 79,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_122"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "005_Кандидат_5_Слесарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Слесарь",
+      "Инженер по охране труда"
+    ],
+    "experience_years": 0,
+    "salary_from": 57000,
+    "match_score": 74,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_123"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "002_Петров_Алексей_Владимирович_Токарь.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Контролер ОТК",
+      "Инженер по охране труда",
+      "Инженер-технолог",
+      "Токарь"
+    ],
+    "experience_years": 10,
+    "salary_from": null,
+    "match_score": 69,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_124"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "017_Кандидат_17_Наладчик.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Наладчик",
+      "Токарь",
+      "Инженер по охране труда",
+      "Слесарь",
+      "Фрезеровщик",
+      "Оператор ЧПУ"
+    ],
+    "experience_years": 0,
+    "salary_from": null,
+    "match_score": 93,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_125"
+  },
+  {
+    "vacancy_id": "vac_013",
+    "resume_filename": "009_Кандидат_9_Электромонтажник.txt",
+    "candidate_name": "Имя не указано",
+    "specializations": [
+      "Инженер по охране труда",
+      "Электромонтажник"
+    ],
+    "experience_years": 0,
+    "salary_from": 88000,
+    "match_score": 87,
+    "status": "rejected",
+    "status_updated_at": "2025-10-18T12:00:00",
+    "id": "app_126"
+  }
+]
