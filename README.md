@@ -1329,7 +1329,7 @@ Proprietary - Все права защищены
 **Автор проекта:**
 - **Губская Елена Мечиславовна**
 - Email: helenatroya729@gmail.com
-- GitHub: [@D1scoB0y](https://github.com/D1scoB0y)
+- GitHub: [@Helenatroya729](https://github.com/Helenatroya729)
 
 **Информация о проекте:**
 - Версия: 1.0.0
@@ -1342,7 +1342,7 @@ Proprietary - Все права защищены
 
 **Разработчик:**
 - Email: helenatroya729@gmail.com
-- GitHub: https://github.com/D1scoB0y/hr-platform-mosprom
+- GitHub: https://github.com/Helenatroya729/hr-platform-mosprom
 
 **Демо-контакты Технополиса "Москва"** (для тестирования):
 - Сайт: https://technomoscow.ru
