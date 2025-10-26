@@ -37,7 +37,7 @@
 
 | Слой         | Технологии                                |
 |--------------|-------------------------------------------|
-| Backend      | Golang, Gin, Clean Architecture, JWT, SQLC|
+| Backend      | Golang, Gin, Hexagonal Architecture, JWT, SQLC|
 | Data Storage | PostgreSQL, SQLC-migrations                |
 | API Gateway  | REST, Gin                                 |
 | DevOps       | Docker, Docker Compose, Makefile, CI/CD   |
@@ -50,7 +50,7 @@
 
 ## Архитектурные паттерны и принципы
 
-- **Clean Architecture (Onion/Hexagonal):**
+- **Clean Architecture (Hexagonal):**
     - Четкое разделение core(domain), application(port/service), adapter (infrastructure)
     - Легкость расширения и интеграции новых endpoint/ролей/модулей
 - **SOLID, KISS, DRY:** строгие подходы к качеству и сопровождению кода
